@@ -46,7 +46,7 @@ function Books() {
     messaging.requestPermission()
       .then(async function () {
         const token = await messaging.getToken();
-        console.log(token);
+        console.log("here's the",token);
         setFirebaseToken(token);
         localStorage.setItem("fireToken",token);
         messaging.onMessage((payload)=>{
@@ -56,9 +56,9 @@ function Books() {
       .catch(function (err) {
         console.log("Unable to get permission to notify.", err);
       });
-      if(firebaseToken){
-        console.log(firebaseToken);
-      }
+      // if(firebaseToken){
+      //   console.log(firebaseToken);
+      // }
     navigator.serviceWorker.addEventListener("message", (message) => {
       const text=message.data['firebase-messaging-msg-data'].data.msg;
       console.log(text);
