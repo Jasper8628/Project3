@@ -56,9 +56,9 @@ function Books() {
       .catch(function (err) {
         console.log("Unable to get permission to notify.", err);
       });
-      if(firebaseToken){
-        console.log(firebaseToken);
-      }
+      // if(firebaseToken){
+      //   console.log(firebaseToken);
+      // }
     navigator.serviceWorker.addEventListener("message", (message) => {
       const text=message.data['firebase-messaging-msg-data'].data.msg;
       console.log(text);
