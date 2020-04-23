@@ -46,7 +46,7 @@ function Books() {
     messaging.requestPermission()
       .then(async function () {
         const token = await messaging.getToken();
-        console.log(token);
+        console.log("here's the",token);
         setFirebaseToken(token);
         localStorage.setItem("fireToken",token);
         messaging.onMessage((payload)=>{
