@@ -21,6 +21,7 @@
   navigator.serviceWorker
     .register("./firebase_msg_sw.js")
     .then(function(registration) {
+      firebase.messaging().useServiceWorker(registration);
       console.log("Registration successful, scope is:", registration.scope);
     })
     .catch(function(err) {
