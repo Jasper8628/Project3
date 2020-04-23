@@ -16,5 +16,52 @@ export default {
   // Saves a book to the database
   saveBook: function(bookData) {
     return axios.post("/api/books", bookData);
+  },
+
+
+
+
+  getUser: function(data) {
+    const token=data.token;
+    console.log("axios:",data);
+    return axios.get(("/api/user/" + data.id),{  
+      headers:{
+        "Authorization":`Bearer ${token}`
+      }});
+  },
+
+  saveUser:function(userData){
+    return axios.post("api/user",userData);
+
+  },
+  checkUser:function(userData){
+    console.log(userData);
+    return axios.post("api/user/auth", userData);
+  },
+
+  saveList:function(data){
+    const token=data.token;
+    return axios.post("api/user",{
+      item:data.item,
+      headers:{
+        "Authorization":`Bearer ${token}`
+      }
+    })
+
+  },
+
+  sendFire:function(data){
+    const token=data.token;
+    return axios.post("api/fire",{
+      token:token
+    })
   }
+
+
+
+
+
+
+
+
 };
