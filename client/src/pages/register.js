@@ -12,11 +12,13 @@ function Register() {
 
     function handleFormSubmit(event) {
         event.preventDefault();
+        const token=localStorage.getItem("fireToken");
         if (formObject.name && formObject.password) {
             const user = {
                 name: formObject.name,
                 email: formObject.email,
-                password: formObject.password
+                password: formObject.password,
+                fireToken:token
             }
             API.saveUser(user)
                 .then(res => console.log(res))

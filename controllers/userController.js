@@ -1,19 +1,18 @@
 const db = require("../models");
 const bcrypt = require("bcrypt");
 const config = require("config");
-const auth = require("../middleware/auth");
 
 const jwt = require("jsonwebtoken");
 // Defining methods for the booksController
 module.exports = {
     findAll: function (req, res) {
+        console.log("findAll userID:", req.params.id);
+        const id=req.params.id;
+        const userID=JSON.parse(id);
         db.User
-            .findOne(req.query)
-            .then(dbModel => {
-
-                res.json(dbModel)
-            })
-            .catch(err => res.status(422).json(err));
+        .findById(userID)
+        .then(user=>res.json(user))
+        .catch(err=> res.status(422).json(err));
     },
 
     login: function (req, res) {
@@ -50,11 +49,12 @@ module.exports = {
 
     register: function (req, res) {
         console.log("register:",req.body);
-        const { name, email, password } = req.body;
+        const { name, email, password,fireToken } = req.body;
         const newUser = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            fireToken:fireToken
         }
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -90,9 +90,9 @@ module.exports = {
     },
     
     update: function (req, res) {
-        
+        console.log("updating: ",req.body._id);
         db.User
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .findOneAndUpdate({ _id: req.params.id }, req.body,{new:true})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

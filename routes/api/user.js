@@ -17,15 +17,17 @@ const auth = require("../../middleware/auth");
 // });
 
 
-router.route
 
 router
 .route("/")
-.get(userController.findAll)
+.get( userController.findAll)
 .post(userController.register);
 router
 .route("/auth")
 .post(userController.login);
+
+router
+.get("/lookup/:id",userController.findAll);
 
 // Matches with "/api/books/:id"
 

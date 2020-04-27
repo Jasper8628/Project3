@@ -10,11 +10,13 @@ function Login(props) {
         message:"",
         color:"text-primary"
     });
+    
 
     function handleInputChange(event) {
         const { name, value } = event.target;
         setFormObject({ ...formObject, [name]: value })
     };
+    
 
     function handleFormSubmit(event) {
         event.preventDefault();
@@ -31,12 +33,19 @@ function Login(props) {
                     console.log(res);
                     localStorage.setItem("reactToken", token);
                     localStorage.setItem("userID",id);
+                    localStorage.setItem("userName",name);
                     console.log(id);
                     setLogState({
                         message:`Login successful, welcome ${name}!`,
                         color:"text-success"
                     })
-                    dispatch({type:"in",userID:id,userToken:token});
+                    console.log(token,id,name);
+                    dispatch({
+                        type:"in",
+                        userName:name,
+                        userID:id,
+                        userToken:token
+                    });
                 })
                 .catch(err => {
                     setLogState({
@@ -49,10 +58,10 @@ function Login(props) {
     
     return (
         <div>
-            <button className="btn btn-success" data-toggle="modal" data-target="#exampleModal">
-                login
+            <button className="btn btn-success" data-toggle="modal" data-target="#loginModal">
+                Sign In/Sign Up
              </button>
-            <div className="modal fade" tabIndex="-1" role="dialog" id="exampleModal">
+            <div className="modal fade" tabIndex="-1" role="dialog" id="loginModal">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header justify-content-center">
@@ -79,18 +88,16 @@ function Login(props) {
                                 <button className="form-control btn btn-success"
                                     // disabled={!(formObject.password) || !(formObject.email)}
                                     onClick={handleFormSubmit}>
-                                    Login
+                                    Sign In
                                  </button>
+                                 <br/>
+                                 <label>Don't have an account yet?</label>
+                                 <button className="form-control btn btn-secondary">Sign Up</button>
                                 <br />
-                                {/* <button onClick={checkButton} className="form-control btn btn-success">Login with Google</button>
-                                <br />
-                                <button className="form-control btn btn-success">Login with Facebook</button> */}
                             </form>
                         </div>
                         <div >
                             <h5 className={`text-center ${logState.color}`}>{logState.message}</h5>
-                            {/* <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button> */}
                         </div>
                     </div>
                 </div>

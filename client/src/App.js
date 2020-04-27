@@ -20,7 +20,7 @@ function App() {
         <Router>
       <div>
         <Nav />
-        <Route exact path="/nomatch" component={Books} />
+        {/* <Route exact path="/nomatch" component={Books} /> */}
         <Switch>
           {/* <Route exact path='/login' component={Logintbygoogle} ></Route> */}
           <Route exact path='/register'><Register /> </Route>
