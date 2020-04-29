@@ -14,14 +14,15 @@ import Notice from "../components/notice";
 import { useCountContext } from "../utils/GlobalState";
 
 function Books() {
-  const [users, setUsers] = useState({
-    list: []
-
-  });
-
+  const [users, setUsers] = useState({ list: [] });
   const [state, dispatch] = useCountContext();
   const [books, setBooks] = useState([]);
   const [formObject, setFormObject] = useState({});
+  const [firebaseToken, setFirebaseToken] = useState();
+  const [notestate, setNotice] = useState({
+    msg: '',
+    replyTo: ""
+  });
   const [userState, setUserState] = useState({
     lat: "",
     lng: "",
@@ -29,17 +30,77 @@ function Books() {
     shoppingList: [],
     address: ""
   });
-  const [firebaseToken, setFirebaseToken] = useState();
-  const [notestate, setNotice] = useState({
-    msg: '',
-    replyTo: ""
-  });
+
 
   useEffect(() => {
     handleBinding();
     loadUser();
-    loadBooks();
+    navigator.serviceWorker.addEventListener("message", (message) => {
+      const text = message.data['firebase-messaging-msg-data'].data.msg;
+      const name = message.data['firebase-messaging-msg-data'].data.name;
+      const request = message.data['firebase-messaging-msg-data'].data.request;
+      if (request !== "none") {
+        console.log(name);
+        const user = {
+          id: name
+        }
+        API.lookupUser(user)
+          .then(res => {
+            const lat = parseFloat(res.data.lat);
+            const lng = parseFloat(res.data.lng);
+            const name = res.data.name;
+            const shoppingList = res.data.shoppingList;
+            const address = res.data.address;
+            const shoppingStr = shoppingList.join(",")
+            const userReply = {
+              lat: lat,
+              lng: lng,
+              name: name,
+              address: address,
+              shoppingList: shoppingStr
+            }
+            const newList = users.list;
+            const names = [];
+            for (var userObject of newList) {
+              names.push(userObject.name);
+            }
+            if (names.indexOf(userReply.name) === -1) {
+              newList.push(userReply);
+              setUsers({
+                list: newList
+              })
+            }
+          })
+        dispatch({ type: "reply" })
+      } else {
+        console.log(text);
+        console.log(name);
+        setNotice({
+          msg: text
+        });
+        dispatch({ type: "notice", sender: name })
+      }
+
+    });
   }, []);
+
+  const [sliderState, setSliderState] = useState({
+    value: 0,
+    color: ""
+  });
+
+  function customSlider(event) {
+
+    const value = parseInt(event.target.value);
+    console.log(value);
+    let background = `linear-gradient( 90deg, var(--neongreen) ${value}%,
+    hsla(var(--hue), var(--saturation), var(--baseLightness), 1) ${value}%)`
+    setSliderState({
+      value: value,
+      color: background
+    });
+    if (value ===100) handleFire(event);
+  }
 
   function handleFire(event) {
     const token = localStorage.getItem("fireToken");
@@ -65,58 +126,10 @@ function Books() {
       .catch(function (err) {
         console.log("Unable to get permission to notify.", err);
       });
-    // if(firebaseToken){
-    //   console.log(firebaseToken);
-    // }
   }
-  if (state.status === "in") {
-    navigator.serviceWorker.addEventListener("message", (message) => {
-      const text = message.data['firebase-messaging-msg-data'].data.msg;
-      const name = message.data['firebase-messaging-msg-data'].data.name;
-      const request = message.data['firebase-messaging-msg-data'].data.request;
-      if (request !== "none") {
-        console.log(name);
-        const user = {
-          id: name
-        }
-        API.lookupUser(user)
-          .then(res => {
-            const lat = parseFloat(res.data.lat) ;
-            const lng = parseFloat(res.data.lng) ;
-            const name = res.data.name;
-            const shoppingList = res.data.shoppingList;
-            const address = res.data.address;
-            console.log(res.data);
-            const userReply={
-              lat: lat,
-              lng: lng,
-              name: name,
-              address: address,
-              shoppingList: shoppingList
-            }
-            const newList=users.list;
-            const names=[];
-            for(var userObject of newList){
-              names.push(userObject.name);
-            }
-            if(names.indexOf(userReply.name)===-1){
-              newList.push(userReply);
-              setUsers({
-                list:newList
-              })
-            }
-          })
-        dispatch({ type: "reply" })
-      } else {
-        console.log(text);
-        console.log(name);
-        setNotice({
-          msg: text
-        });
-        dispatch({ type: "notice", sender: name })
-      }
 
-    });
+  if (state.status === "in") {
+
   }
   function checkReply(event) {
     event.preventDefault()
@@ -146,13 +159,6 @@ function Books() {
     }
     API.getUser(user)
       .then(res => {
-        // const name = res.data.name;
-        // console.log(res.data);
-        // console.log("name:", res.data.name);
-        // console.log("order:", res.data.orders);
-        // setUserState(res.data);
-        console.log(userState);
-
         const lat = parseFloat(res.data.lat);
         const lng = parseFloat(res.data.lng);
         console.log("logging account: ", lat, lng);
@@ -167,91 +173,78 @@ function Books() {
       .catch(err => console.log(err));
   }
 
-
-
   return (
     <Container fluid>
       <div className="row justify-content-center">
-        <Col size="md-6">
+        <div className="col-md-12 col-sm-12 justify-content-start" >
+          <h2 className="sliderLable">Slide to let your neighbors know...</h2>
+          <input
+            className="col-sm-12"
+            id="slider"
+            type="range"
+            name="slider"
+            min="0"
+            value={sliderState.value}
+            max="100"
+            placeholder="Slide to let them know"
+            style={{ "background": `${sliderState.color}` }}
+            onChange={customSlider}
+          />
+        </div>
 
-          <GoogleMaps userList={users.list}/>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <button className="btn btn-primary"
-            onClick={handleBinding}>firebase button</button>
-          <button className="btn btn-primary"
-            onClick={handleFire}>admin</button>
+        <div className="col-md-12 col-sm-12">
+          <br/>
+          <div className="mapContainer">
+            <GoogleMaps userList={users.list} />
+          </div>
+  
+          {/* <button className="btn btn-primary" onClick={handleBinding}>firebase button</button>
+          <button className="btn btn-primary" onClick={handleFire}>admin</button> */}
           <Notice
             replyTo={notestate.replyTo}
             text={notestate.msg} />
-          <button onClick={loadUser}>user</button>
-          <button onClick={checkReply} >check reply</button>
+          {/* <button onClick={loadUser}>user</button>
+          <button onClick={checkReply} >check reply</button> */}
           <br />
           <br />
-          {/* <form>
-            <Input
-              onChange={handleInputChange}
-              name="title"
-              placeholder="Title (required)"
-            />
-            <Input
-              onChange={handleInputChange}
-              name="author"
-              placeholder="Author (required)"
-            />
-            <TextArea
-              onChange={handleInputChange}
-              name="synopsis"
-              placeholder="Synopsis (Optional)"
-            />
-            <FormBtn
-              disabled={!(formObject.author && formObject.title)}
-              onClick={handleFormSubmit}
-            >
-              Submit Book
-              </FormBtn>
-          </form> */}
-          <Jumbotron>
-            <h1>My Shopping List</h1>
-          </Jumbotron>
           <div className="row justify-content-center">
             <div className="col-md-6">
+              <Jumbotron>
+                <h3>My Shopping List</h3>
+              </Jumbotron>
               <ShoppingList />
             </div>
             <div className="col-md-6">
-              {books.length ? (
+              <Jumbotron>
+                <h3>Neighbor's Shopping List</h3>
+              </Jumbotron>
+              {state.requests.length ? (
                 <List>
-                  {books.map(book => (
-                    <ListItem key={book._id}>
-                      <Link to={"/books/" + book._id}>
-                        <strong>
-                          {book.title} by {book.author}
-                        </strong>
-                      </Link>
-                      <DeleteBtn onClick={() => deleteBook(book._id)} />
+                  {state.requests.map(request => (
+                    <ListItem key={request._id}>
+                      {/* <Link to={"/books/" + book._id}> */}
+                      <div className="card">
+                        <div className="card-body">
+                          <div className="card-title">Name: {request.name} </div>
+                          <div className="card-subtitle">Addess: {request.address}</div>
+                          <div className="card-text">Request: {request.shoppingList} </div>
+                        </div>
+                      </div>
+                      <button>Fulfilled</button>
+                      {/* </Link> */}
+                      {/* <DeleteBtn onClick={() => deleteBook(book._id)} /> */}
                     </ListItem>
                   ))}
                 </List>
               ) : (
-                  <h3>No Results to Display</h3>
+                  <h3 className="myNoResult" >No Results to Display</h3>
                 )}
             </div>
           </div>
-        </Col>
-
-
-        <div className="col-md-8 ">
         </div>
       </div>
-
-
-
     </Container>
   );
 }
-
 
 export default Books;

@@ -44,7 +44,7 @@ function ShoppingList() {
     return (
         <div>
             <form>
-                <label style={{ "display": "block" }}>My shopping List</label>
+                {/* <label style={{ "display": "block" }}>My shopping List</label> */}
                 <input
                     style={{ "display": "inline" }}
                     onChange={handleInputChange}
@@ -76,7 +76,7 @@ function ShoppingList() {
                     </List>
 
                 ) : (
-                        <h6>No Results to Display</h6>
+                        <h6 className="myNoResult">No Results to Display</h6>
                     )}
 
             </div>

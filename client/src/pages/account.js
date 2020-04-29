@@ -59,9 +59,11 @@ function Account() {
                 .then(res => {
                     const lat = res.data.lat;
                     const lng = res.data.lng;
+                    const line1 = res.data.line1;
+                    const line2 = res.data.line2;
                     setFormObject(res.data);
                     console.log("logging account: ", lat, lng);
-                    dispatch({ type: "in", lat: lat, lng: lng });
+                    dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2 });
                 })
                 .catch(err => console.log(err));
         }
@@ -85,16 +87,16 @@ function Account() {
 
     function handleFormSubmit(event) {
         event.preventDefault();
-        const address=formObject.line1+" "+formObject.line2;
-        const fireToken=localStorage.getItem("fireToken");
+        const fireToken = localStorage.getItem("fireToken");
         const user = {
             id: localStorage.getItem("userID"),
             token: localStorage.getItem("reactToken"),
             name: formObject.name,
             email: formObject.email,
-            fireToken:fireToken,
+            fireToken: fireToken,
             //password: formObject.password,
-            address:address,
+            addressLine1: formObject.line1,
+            addressLine2: formObject.line2,
             phone: formObject.phone,
             postcode: state.postcode,
             lat: state.lat,
@@ -112,41 +114,41 @@ function Account() {
             <br />
             <div className="row justify-content-center">
 
-                <form className="form-control col-md-6" 
-                style={(state.status === "in" ?
-                 { "display": "block" } : { "display": "none" })}>
+                <form className=" col-md-6"
+                    style={(state.status === "in" ?
+                        { "display": "block" } : { "display": "none" })}>
                     <label>Name:</label>
-                    <Input
+                    <input className="accountInput"
                         onChange={handleInputChange}
                         name="name"
                         value={formObject.name}
                     />
                     <label>Email:</label>
-                    <Input
+                    <input className="accountInput"
                         onChange={handleInputChange}
                         name="email"
                         value={formObject.email}
                     />
                     <label>Password:</label>
-                    <Input
+                    <input className="accountInput"
                         onChange={handleInputChange}
                         name="password"
                         type="password"
                     />
                     <label>Mobile Phone:</label>
-                    <Input
+                    <input className="accountInput"
                         onChange={handleInputChange}
                         name="phone"
                         value={formObject.phone}
                     />
                     <label>Address:</label>
-                    <Input
+                    <input className="accountInput"
                         onChange={handleInputChange}
                         name="line1"
                         placeholder="Line 1"
                         value={formObject.line1}
                     />
-                    <Input
+                    <input className="accountInput"
                         onChange={handleInputChange}
                         name="line2"
                         placeholder="Line 2"
@@ -154,7 +156,7 @@ function Account() {
                     />
                     <div className="row">
                         <div className="col-md-4">
-                            <Input
+                            <input className="accountInput"
                                 onChange={handleInputChange}
                                 name="stateTerritory"
                                 placeholder="State/Territory"
@@ -162,40 +164,38 @@ function Account() {
                             />
                         </div>
                         <div className="col-md-4">
-                            <Input
+                            <input className="accountInput"
                                 onChange={handleRadiusChange}
+                                name="postcode"
+                                placeholder="Post Code"
+                                value={state.postcode}
+                            />
+                        </div>
+
+                        <div className="col-md-4">
+                            <input className="accountInput"
+                                onChange={handleInputChange}
                                 name="radius"
-                                placeholder="Radius"
+                                placeholder="Radius: 50m"
                                 value={state.radius}
                             />
                         </div>
-                        <div className="col-md-4">
-                            <h5>Post Code: {state.postcode}</h5>
-                            {/* <Input
-                                onChange={handleInputChange}
-                                name="Post Code"
-                                placeholder="Post Code"
-                                value={state.postcode}
-                            /> */}
-                        </div>
+              
                     </div>
                     <label>Drag pin to change your location:</label>
+                    <div className="mapContainer">
                     <GoogleMaps />
+                    </div>
                     <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <button className="form-control btn btn-success"
+                    <button 
+                        className="saveBtn"
                         onClick={handleFormSubmit}>
                         Save changes
                     </button>
-
-                    <Logout />
                 </form>
-                <div className="col-md-4" 
-                style={(state.status === "in" ?
-                 { "display": "block" } : { "display": "none" })}>
+                <div className="col-md-4"
+                    style={(state.status === "in" ?
+                        { "display": "block" } : { "display": "none" })}>
                     <div className="card">
                         <div className="card-body">
                             <h5 className="card-title">Active Request</h5>

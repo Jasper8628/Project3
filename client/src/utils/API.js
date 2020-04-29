@@ -21,17 +21,10 @@ export default {
  lookupUser:function (data){
    return axios.get("/api/user/lookup/" + data.id);
  },
+
+
  saveRequest:function(data){
-   const token=data.token;
-   const newData={
-     status:data.status,
-     request:data.request
-   }
-   return axios.post("/api/order",newData,{
-    headers: {
-      "Authorization": `Bearer ${token}`
-    }
-   })
+   return axios.post("/api/order/",data)
  },
 
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import API from "../utils/API";
-import { Input } from "../components/Form";
+import { Input } from "./Form";
 
 function Register() {
 
@@ -35,19 +35,19 @@ function Register() {
 
                 <form className="form-control col-md-4" >
                     <label>User name:</label>
-                    <Input
+                    <input
                         onChange={handleInputChange}
                         name="name"
                         placeholder="user name"
                     />
                     <label>User Email:</label>
-                    <Input
+                    <input
                         onChange={handleInputChange}
                         name="email"
                         placeholder="email (required)"
                     />
                     <label>Password:</label>
-                    <Input
+                    <input
                         onChange={handleInputChange}
                         name="password"
                         type="password"
@@ -55,7 +55,7 @@ function Register() {
                     />
                     <label>{(formObject.password === formObject.rePassword)||!(formObject.rePassword) ?
                         "Verify password:" : "Verify password: (passwords don't match)"}</label>
-                    <Input
+                    <input
                         onChange={handleInputChange}
                         name="rePassword"
                         type="password"

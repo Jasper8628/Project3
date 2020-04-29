@@ -8,11 +8,6 @@ import { useCountContext } from "../utils/GlobalState";
 function Requestie() {
     const [formObject, setFormObject] = useState({});
     const [state, dispatch] = useCountContext();
-    const [logState, setLogState] = useState({
-        message: "",
-        color: "text-primary"
-    });
-
     function handleInputChange(event) {
         const { name, value } = event.target;
         setFormObject({ ...formObject, [name]: value })
@@ -40,9 +35,28 @@ function Requestie() {
     // }
     function reply(){
         const name=state.sender;
+        const userName=state.userName;
         const id=localStorage.getItem("userID");
         // const userID=JSON.stringify(id);
         const token=localStorage.getItem("userToken");
+        const data={
+            name:"user name UD as in undefined",
+            item1:formObject.item1,
+            item2:formObject.item2,
+            item3:formObject.item3,
+            item4:formObject.item4,
+            item5:formObject.item5,
+            addressLine1:state.addressLine1,
+            addressLine2:state.addressLine2,
+            status:"active"
+        }
+        API.saveRequest(data)
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(err=>console.log(err));
+        dispatch({ type: "closeNotice" })
+
         // API.saveRequest({request:formObject,status:"active",token:token});
         API.reply({name:name,id:id});
     }

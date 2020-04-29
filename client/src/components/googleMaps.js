@@ -13,11 +13,7 @@ function GoogleMaps(props) {
     const [mapPosition, setMapPosition] = useState({
         lat: "",
         lng: ""
-    })
-    const [mapState, setMapState] = useState({
-
-
-    })
+    });
     useEffect(() => {
         loadGeo();
 
@@ -29,12 +25,11 @@ function GoogleMaps(props) {
             navigator.geolocation.getCurrentPosition(position => {
                 lat = position.coords.latitude;
                 lng = position.coords.longitude;
-                setMapPosition({ lat:lat, lng:lng });
+                setMapPosition({ lat: lat, lng: lng });
                 console.log("lat: ", lat);
                 console.log("lng: ", lng);
                 Geocode.fromLatLng(lat, lng)
                     .then(res => {
-                        console.log(res)
                     })
             }, function error(msg) { alert('Please enable your GPS position feature.'); },
                 { maximumAge: 10000, timeout: 5000, enableHighAccuracy: true });
@@ -58,7 +53,7 @@ function GoogleMaps(props) {
             })
     }
     function Map() {
-        console.log(props.userList)
+        const [selectedUser, setSelectedUser] = useState();
         return (
             <div>
                 <GoogleMap
@@ -86,13 +81,43 @@ function GoogleMaps(props) {
                                 lng: mapPosition.lng
                             }
                         }
+                        options={{ strokeColor: "#FFD300" }}
                     />
-                    {props.userList.map(user=>(
-                        <Marker
-                        key={user.id}
-                        position={{lat:user.lat,lng:user.lng}}
-                        />
-                    ))}
+                    {props.userList ?
+                        (props.userList.map(user => (
+                            <Marker
+                                key={user.id}
+                                position={{ lat: user.lat, lng: user.lng }}
+                                onClick={() => {
+                                    setSelectedUser(user);
+                                }}
+                            />
+                        ))) : ("")}
+                    {selectedUser && (
+                        <InfoWindow
+                            position={{
+                                lat: selectedUser.lat,
+                                lng: selectedUser.lng
+                            }}
+                            onCloseClick={() => {
+                                setSelectedUser(null)
+                            }}>
+                            <div>
+                                <h4>{selectedUser.name}</h4>
+                                <p>My shopping list </p>
+                                <button onClick={()=>{
+                                    console.log("clicked infoWindow")
+                                    const request= {
+                                        name:selectedUser.name,
+                                        address:selectedUser.address,
+                                        shoppingList:selectedUser.shoppingList
+                                    }
+                                    dispatch({type:"add",request:request})
+                                }}>Accept</button>
+                            </div>
+                        </InfoWindow>
+                    )}
+
                     <Circle
                         defaultCenter={state.lat ?
                             {

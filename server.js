@@ -43,7 +43,7 @@ app.post("/api/fire/reply", (req, res) => {
       }
       admin.messaging().send(message)
         .then((res) => {
-          console.log(res)
+          console.log("fire reply: ", res)
         })
         .catch(err => console.log(err));
     })
@@ -65,7 +65,7 @@ app.post("/api/fire", (req, res) => {
   console.log("fire:", name);
   admin.messaging().send(message)
     .then((res) => {
-      console.log(res)
+      console.log("admin msg:", res)
     })
     .catch(err => console.log(err));
 

@@ -1,0 +1,256 @@
+:root{
+    --hue:205;
+    --baseLightness:60%;
+    --oneShadeLighter:50%;
+    --twoShadeLighter:60%;
+    --threeShadeLighter:75%;
+    --oneShadeDarker:30%;
+    --twoShadeDarker:10%;
+    --threeShadeDarker:5%;
+    --saturation:75%;
+    --neongreen:hsla(60,100%,50%,1);
+    --newgreenDark:hsla(60,100%,40%,1);
+    --lightRed:hsla(360,100%,73%,1);
+}
+body{
+    background: hsla(var(--hue), var(--saturation), var(--oneShadeDarker), 1);
+
+}
+.container{
+    box-shadow: inset -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                 inset 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    width: 80vw;
+    height:100vh;
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
+
+}
+.modal-dialog{
+    border:none;
+    background-color: transparent;
+}
+.modal-content{
+    
+    border-radius: 1rem;
+    justify-content: center;
+    background-color:transparent;
+}
+label{
+    display:block;
+    color:var(--neongreen);
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
+}
+
+.form-group{
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
+
+}
+
+.modal-body {
+    
+    border :transparent;
+    
+    box-shadow:  -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    background: transparent;
+    
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1)
+}
+.modal-header {
+    box-shadow:  -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    position: relative;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background: hsla(var(--hue), var(--saturation), var(--twoShadeDarker), 1);
+    color:var(--neongreen);
+
+}
+.modal-footer{
+    box-shadow:  -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    color: var(--neongreen);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background: hsla(var(--hue), var(--saturation), var(--oneShadeDarker), 1);
+}
+
+button{
+    box-shadow: -1.2px -1.2px 1.5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+              inset -1.2px -1.2px 1.5px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1),
+                 1.2px 1.2px 7.5px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
+             inset    1.2px 1.2px 7.5px hsla(var(--hue),var(--saturation),var(--threeShadeLighter),1);
+    color:var(--neongreen);
+    margin: 10px;
+    border: transparent;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 15px;
+    border-radius: 0.8rem;
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
+}
+button:active{
+    box-shadow: -1.2px -1.2px 1.5px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1),
+                inset -1.5px -1.5px 2px hsla(var(--hue),var(--saturation),var(--baseLightness),1),
+    
+                 1.2px 1.2px 7.5px hsla(var(--hue),var(--saturation),var(--baseLightness),1),
+                inset 1.5px 1.5px 10px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    color:var(--neongreen);
+    margin: 10px;
+    border: transparent;
+    padding-bottom: 5px;
+    border-radius: 1rem;
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
+}
+.signinBtn{
+    background: hsla(var(--hue), var(--saturation), var(--twoShadeDarker), 1);
+}
+.signinBtn:active{
+    background: hsla(var(--hue), var(--saturation), var(--oneShadeDarker), 1);
+
+}
+.saveBtn{
+    font-weight: 700;
+}
+button:focus{
+    outline: none;
+}
+.closeBtn{
+    color:white;
+    box-shadow: -1px -1px 2px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                1px 1px 5px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    background-color: hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1);
+    position: absolute;
+    right:0px;
+    top:10px;
+    line-height: 15px;
+    padding-left: 8px;
+    border-radius: 0.2rem;
+    height: 20px;
+    width: 20px;
+}
+.closeBtn:active{
+    box-shadow: inset -1px -1px 2px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                inset 1px 1px 5px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+
+}
+.sucess{
+    color:var(--neongreen);
+}
+.failed{
+    color:var(--lightRed);
+}
+input:focus{
+    outline: none;
+}
+input{
+    box-shadow: inset -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                inset 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 1rem;
+    border:none;
+    display: block;
+    background: darkgray;
+    /* background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1)!important; */
+}
+input:focus{
+    box-shadow: inset -1px -1px 2px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                inset 1px 1px 5px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 1rem;
+    border:none;
+    display: block;
+    background: lightgray;
+    /* background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1)!important; */
+}
+form{
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
+    justify-content: center;
+    font-weight: 700;
+}
+
+#slider{
+    
+    box-shadow: inset -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                inset 3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1);
+    display: block;
+    background:linear-gradient( 90deg,hsla(var(--hue), var(--saturation), var(--baseLightness), 1) 0%,
+                                 hsla(var(--hue), var(--saturation), var(--baseLightness), 1) 100%);
+    -webkit-appearance: none;
+    padding:0;
+    width:100%;
+    height:70px;
+    border-radius: 3rem;
+    overflow: hidden;
+}
+
+#slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 150px;
+    height: 70px;
+    border-radius: 3rem;
+    background: hsla(var(--hue), var(--saturation), var(--oneShadeDarker), 1);
+    cursor: pointer;
+    
+    box-shadow: -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+              inset -3px -3px 5px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1),
+                 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
+             inset    3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeLighter),1);
+    
+}
+#sliderH2{
+    color:white;
+    margin-left: 0;
+
+}
+.mapContainer{
+    height: 400px;
+    border-radius: 2rem;
+    
+    box-shadow: -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+              inset -3px -3px 5px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1),
+                 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
+             inset    3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeLighter),1);
+}
+.sliderLable{
+    color: var(--neongreen);
+    line-height: 70px;
+    padding-bottom: 0;
+}
+.navbar-brand{
+    font-family: fantasy;
+    text-transform: none;
+    margin-top: -12px;
+    height: 70px;
+    background: var(--neongreen);
+    color: hsla(var(--hue), var(--saturation), var(--oneShadeDarker), 1);
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: xx-large;
+    font-weight: 1800;
+}
+.navbar-brand:hover{
+    font-family: fantasy;
+    color: hsla(var(--hue), var(--saturation), var(--oneShadeLighter), 1);
+}
+.jumbotron{ 
+    color: hsla(var(--hue), var(--saturation), var(--oneShadeDarker), 1);
+    background: var(--neongreen);
+    box-shadow: -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+              inset -3px -3px 5px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1),
+                 3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
+             inset    3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeLighter),1);
+}
+.jumbotron h3{
+    
+    font-family: fantasy;
+    font-weight: 1200;
+}
+.myNoResult{
+    color:var(--newgreenDark);
+}
+.accountInput{
+    display: block;
+    width: 100%;
+}

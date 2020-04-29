@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import SignUp from "../signUp";
+import SignUp from "../signup/signUp";
 import { useCountContext } from "../../utils/GlobalState";
 import Requestie from "../requestie";
 import Login from "../login";
+import "./nav.css";
 
 function Nav() {
-  
+
   const [state, dispatch] = useCountContext();
   const [logoutState, setLogoutState] = useState("block");
   const [loginState, setLoginState] = useState("block");
@@ -18,34 +19,40 @@ function Nav() {
       setLoginState("block");
     }
   }
-  function checkstate(event){
+  function checkstate(event) {
     event.preventDefault();
     console.log(state);
-
   }
+ 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success">
-      <a className="navbar-brand" href="/">
-        i-Request
+    <div className="row">
+    
+      <nav className="navbar col-md-12">
+        <a className="navbar-brand" href="/">
+          I-Request
       </a>
-      {/* <a className="nav-link" style={{"display":`${logoutState}`}} href="#">
+      <h4 id="sliderH2">Going to the shops?</h4>
+        {/* <a className="nav-link" style={{"display":`${logoutState}`}} href="#">
         <Logout/>
       </a> */}
-      <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
-        <SignUp>Testing</SignUp>
-      </a>
-      {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
+        <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
+          <SignUp>Testing</SignUp>
+        </a>
+        {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
         <Login />
       </a> */}
-      {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
+        {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
         <Requestie />
       </a> */}
-      <a className="nav-link" href="/account">
-        <button className="btn btn-success" >Account</button>
-      </a>
-      <button onClick={checkstate}>check state</button>
+        <a className="nav-link" href="/account">
+          <button className="signinBtn" >Account</button>
+        </a>
+        {/* <button onClick={checkstate}>check state</button> */}
 
-    </nav>
+      </nav>
+
+    </div>
+
   );
 }
 

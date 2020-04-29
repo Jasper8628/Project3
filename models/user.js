@@ -6,14 +6,18 @@ const userSchema = new Schema({
   email:{type:String,required:true},
   phone:{type:Number},
   password:{type:String,required:true},
-  address: { type: String },
+  addressLine1:{type:String},
+  addressLine2:{type:String},
   image: {type:String},
   fireToken:{type:String},
   radius:{type:Number},
   postcode:{type:Number},
   lat:{type:Number},
   lng:{type:Number},
-  shoppingList: [],
+  shoppingList: [{
+    type:Schema.Types.ObjectId,
+    ref:"Order"
+  }],
   history:[]
 });
 

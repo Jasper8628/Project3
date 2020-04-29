@@ -25,7 +25,9 @@ const reducer = (state, action) => {
         userID: action.userID,
         userToken: action.userToken,
         lat: action.lat,
-        lng: action.lng
+        lng: action.lng,
+        line1:action.line1,
+        line2:action.line2
       }
     case "drag":
       return {
@@ -56,6 +58,13 @@ const reducer = (state, action) => {
         ...state,
         displayReply:"block"
       }
+    case "add":
+      const requestList=state.requests;
+      requestList.push(action.request);
+      return {
+        ...state,
+        requests:requestList
+      } 
     default:
       throw new Error(`Invalid action type: ${action.type}`);
   }
@@ -67,6 +76,7 @@ const CountProvider = ({ value = 0, ...props }) => {
     status: "out",
     displayNotice:"none",
     displayReply:"none",
+    requests:[],
     sender:"sender",
     login: "block",
     logout: "none",
@@ -75,7 +85,9 @@ const CountProvider = ({ value = 0, ...props }) => {
     userToken: "token",
     postcode: "",
     lat: "",
-    lng: ""
+    lng: "",
+    line1:"",
+    line2:""
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

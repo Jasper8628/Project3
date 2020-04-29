@@ -4,7 +4,6 @@ import NoMatch from "./pages/NoMatch";
 import Detail from "./pages/Detail";
 import Nav from "./components/Nav";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Register from "./pages/register";
 import {CountProvider} from "./utils/GlobalState";
 import Account from "./pages/account";
 
@@ -20,16 +19,16 @@ function App() {
         <Router>
       <div>
         <Nav />
-        {/* <Route exact path="/nomatch" component={Books} /> */}
-        <Switch>
-          {/* <Route exact path='/login' component={Logintbygoogle} ></Route> */}
-          <Route exact path='/register'><Register /> </Route>
+        <div className="container">    
+           <Switch>
           <Route exact path='/account'><Account /> </Route>
-          {/* <Route path='/dashboard' component={Dashboard} ></Route> */}
           <Route exact path="/"> <Books /></Route>
           <Route exact path="books/:id" ><Detail /></Route>
           <Route ><NoMatch /></Route>
         </Switch>
+
+        </div>
+   
       </div>
     </Router>
     </CountProvider>
