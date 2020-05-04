@@ -50,8 +50,7 @@ function Books() {
       const { user, line1, line2, type } = message.data['firebase-messaging-msg-data'].data;
       const testLat = message.data['firebase-messaging-msg-data'].data.lat;
       const testLng = message.data['firebase-messaging-msg-data'].data.lng;
-      console.log("requestID reply:", requestID);
-      console.log("request reply:", user, "testLat:", testLat);
+      console.log("logging fire reply type: ",type);
       if (requestID !== "none") {
         console.log(name);
         const request = {

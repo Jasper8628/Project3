@@ -15,7 +15,7 @@ module.exports = {
                 users.filter(user => {
                     const a = (user.lat - lat) * 111263.0566;
                     const b = (user.lng - lng) * 111263.0566;
-                    if (0 < (a * a + b * b) <= radius * radius) {
+                    if (0 < (a * a + b * b) <= radius * radius &&user.name!==name) {
                         tokens.push(user.fireToken);
                     }
                 });
@@ -25,7 +25,8 @@ module.exports = {
                     data: {
                         msg: `${name} from your neighborhood is going to the shops,\n \n any requests?`,
                         name: name,
-                        request: "none"
+                        request: "none",
+                        type:"send"
                     },
                     tokens: tokens
                 }
