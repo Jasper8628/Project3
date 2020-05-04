@@ -120,11 +120,19 @@ function Books() {
   }
 
   function handleFire(event) {
-    const token = localStorage.getItem("fireToken");
+    const data={
+      postcode:parseInt(state.postcode),
+      lat:state.lat,
+      lng:state.lng,
+      name:localStorage.getItem("userName"),
+      radius:state.radius,
+      token:localStorage.getItem("fireToken")
+    }
+    console.log("logging from handfire:", state,data);
     const name = localStorage.getItem("userName");
-    console.log(state);
-    console.log("book.js handleFire: ", name);
-    API.sendFire({ token: token, name: name });
+   
+    console.log("logging from handleFire: ", name);
+    API.sendFire(data);
 
   }
 
@@ -311,7 +319,7 @@ function Books() {
               <div>
                 {state.requests.length ?
                   (
-                    <div className="row myContentRow">
+                    <div className="row">
                       <button className="myContentBtn fas fa-store" onClick={homeListBtn}></button>
                       {state.requests.map(request => (
 
@@ -345,37 +353,8 @@ function Books() {
                    <button>Cancel</button>
                    <button>Complete</button>
                 </div>
-
-
               </div>
-
-            </div>
-            <div className="col-md-6 neiborList">
-              <Jumbotron>
-                <h3>Neighbor's Shopping List</h3>
-              </Jumbotron>
-              {state.requests.length ? (
-                <ul>
-                  {state.requests.map(request => (
-                    <li className="neighborList" key={request._id}>
-                      {/* <Link to={"/books/" + book._id}> */}
-                      <div className="card">
-                        <div className="card-body">
-                          <div className="card-title">Name: {request.name} </div>
-                          <div className="card-subtitle">Addess: {request.address}</div>
-                          <div className="card-text">Request: {request.shoppingList} </div>
-                        </div>
-                        <button>Fulfilled</button>
-                      </div>
-                      {/* </Link> */}
-                      {/* <DeleteBtn onClick={() => deleteBook(book._id)} /> */}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                  <h3 className="myNoResult" >No Results to Display</h3>
-                )}
-            </div>
+            </div>        
           </div>
         </div>
       </div>

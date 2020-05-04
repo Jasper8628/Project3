@@ -329,11 +329,9 @@ li{
     color: hsla(var(--hue),var(--saturation),var(--fourShadeDarker),1);
     font-weight: 550;
     margin-left: -10px;
-    margin-top: 15px;
-    margin-bottom: 10px;
     height: 100%;
     align-items: center;
-    text-align: center;
+    text-align: start;
     border-radius: 0.5rem;
     width: 100%;
     display: block;
@@ -343,7 +341,7 @@ li{
                  2px 2px 7px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1); */
 }
 li button{
-    width: 100%;
+    width: 60%;
 }li button:active{
     text-decoration: line-through;
 }
@@ -415,14 +413,15 @@ li button{
     display: none;
 }
 .myContentBtn{
+    z-index: 0;
     border-top-right-radius: 0.8rem;
     border-top-left-radius: 0.8rem;
     border-bottom-right-radius: 0rem;
     border-bottom-left-radius: 0rem;
-    margin-bottom: 0;
+    margin-bottom: 3px;
     margin-right:-5px;
     width: var(--btnWidth);
-    height: 40px;
+    height: 37px;
     background: hsla(var(--hue),var(--saturation),var(--baseLightness),1);
     box-shadow: -2px -2px 3px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1),
           inset  -2px -2px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 
@@ -431,13 +430,14 @@ li button{
     
 }
 .myContentBtn:active{
-    z-index: 100;
+    z-index: 0;
     margin-right:-5px;
     border-top-right-radius: 0.8rem;
     border-top-left-radius: 0.8rem;
     border-bottom-right-radius: 0rem;
     border-bottom-left-radius: 0rem;
     margin-bottom: 0;
+    height: 40px;
     box-shadow: -2px -2px 3px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1),
           inset  -2px -2px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 
                  2px 0px 3px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
@@ -447,12 +447,14 @@ li button{
 }
 .myContentBtn:focus{
     margin-right:-5px;
-    z-index: 100;
+    z-index: 0;
     border-top-right-radius: 0.8rem;
     border-top-left-radius: 0.8rem;
     border-bottom-right-radius: 0rem;
     border-bottom-left-radius: 0rem;
     margin-bottom: 0;
+    
+    height: 40px;
     box-shadow: -2px -2px 3px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1),
           inset  -2px -2px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 
                  2px 0px 3px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
@@ -463,7 +465,7 @@ li button{
 }
 
 .myContent{
-    z-index: 10;
+    z-index: 100;
     padding: 15px;
     border-top-right-radius: 0.8rem;
     border-bottom-right-radius: 0.8rem;
@@ -471,13 +473,13 @@ li button{
     height: 100%;
     width: 100%;
     background: hsla(var(--hue),var(--saturation),var(--baseLightness),1);
- margin-left: -5px;
-    margin-top: 0;
+    margin-left: -5px;
+    margin-top: 0px;
     
-    box-shadow: -2px 0px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
-          inset  -2px 0px 17px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 
-                 2px 0px 15px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1),
-            inset 2px 0px 15px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1); 
+    box-shadow: -2px 2px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+          inset  -2px 2px 17px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 
+                 2px 2px 15px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1),
+            inset 2px 2px 15px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1); 
 }
 
 .landingContainer{
@@ -489,4 +491,15 @@ li button{
           inset  -3px -3px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 
                  3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1),
             inset 5px 5px 25px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1); 
+}
+.infoWindow{
+    padding:5px;
+    border-radius: 0.5rem;
+    /* background:hsla(var(--hue),var(--saturation),var(--baseLightness),1) ; */
+    color:hsla(var(--hue),var(--saturation),var(--fourShadeDarker),1);
+    font-weight: 550;
+}
+.shoppingListBtn:target{
+    text-decoration: line-through;
+
 }

@@ -123,7 +123,7 @@ function GoogleMaps(props) {
                             onCloseClick={() => {
                                 setSelectedUser(null)
                             }}>
-                            <div>
+                            <div className="infoWindow">
                                 <p>{selectedUser.name}</p>
                                 <p>requests {selectedUser.numItem} items</p>
                                 <button onClick={handleAccept}>Accept</button>

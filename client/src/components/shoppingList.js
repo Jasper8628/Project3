@@ -9,6 +9,7 @@ function ShoppingList() {
     const [shoppingList, setList] = useState({
         list: []
     });
+    const [btnState, setBtnState] = useState({})
     const [formObject, setFormObject] = useState({});
 
     function handleInputChange(event) {
@@ -42,6 +43,7 @@ function ShoppingList() {
         console.log(shoppingList.list);
     }
 
+
     return (
         <div>
             <form>
@@ -64,18 +66,17 @@ function ShoppingList() {
                 {shoppingList.list.length ? (
                     <ul>
                         {shoppingList.list.map(item => (
-                            <li key={item._id}>
-                                <div className="row justify-content-center">
-                                {/* <input className="checkBox" type="checkbox" /> */}
-                                <button> {item.name} x {item.quantity}</button>
+                            <li key={shoppingList.list.indexOf(item)}>
+                                <div className="row justify-content-start">
+                                    {/* <input className="checkBox" type="checkbox" /> */}
+                                    <button className="shoppingListBtn"
+                                    > {item.name} x {item.quantity}</button>
 
                                 </div>
 
                             </li>
                         ))}
-                        <button
-                        // onClick={handleFormSubmit}
-                        >Save  </button>
+                        <button>Save  </button>
                     </ul>
 
                 ) : (

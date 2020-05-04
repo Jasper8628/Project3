@@ -78,12 +78,7 @@ export default {
   },
 
   sendFire: function (data) {
-    const token = data.token;
-    const name = data.name;
-    return axios.post("/api/fire", {
-      token: token,
-      name: name
-    })
+    return axios.post("/api/fire", data)
   },
   reply: function (data) {
     return axios.post("/api/fire/reply", data)

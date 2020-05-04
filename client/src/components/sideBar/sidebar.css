@@ -36,9 +36,10 @@
 }
 .sidebar button{
     display: block;
+    width: 80%;
 }
 .sidebar li{
-    margin-bottom: -15px;
+    margin-bottom: 15px;
     background: none;
     box-shadow: none;
 }
