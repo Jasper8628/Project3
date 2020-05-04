@@ -70,14 +70,27 @@ function Account() {
     }
 
     function handleRadiusChange(event) {
-        const radius = parseInt(event.target.value);
-        console.log(radius);
-        if (radius !== "NaN") {
-            dispatch({
-                type: "radius",
-                radius: radius
-            });
+        const value = event.target.value;
+        if (value === "NaN") {
+            dispatch({ type: "radius", radius: 0 })
+            console.log(value);
+        } else {
+            const radius = parseInt(value);
+
+            dispatch({ type: "radius", radius: radius })
+
         }
+        // if (value === "") dispatch({
+        //     type: "radius",
+        //     radius: 0
+        // });
+
+        // const radius = parseInt(event.target.value);
+
+        // dispatch({
+        //     type: "radius",
+        //     radius: radius
+        // });
     }
 
     function handleInputChange(event) {
@@ -109,12 +122,13 @@ function Account() {
     };
 
     return (
-        <div className="container">
-            <br />
-            <br />
+        <div>
+            <Link to="/home">
+                <button className="settings fas fa-share"></button>
+            </Link>
             <div className="row justify-content-center">
 
-                <form className=" col-md-6"
+                <form className=" col-md-10 col-sm-10"
                     style={(state.status === "in" ?
                         { "display": "block" } : { "display": "none" })}>
                     <label>Name:</label>
@@ -165,7 +179,7 @@ function Account() {
                         </div>
                         <div className="col-md-4">
                             <input className="accountInput"
-                                onChange={handleRadiusChange}
+                                onChange={handleInputChange}
                                 name="postcode"
                                 placeholder="Post Code"
                                 value={state.postcode}
@@ -174,26 +188,27 @@ function Account() {
 
                         <div className="col-md-4">
                             <input className="accountInput"
-                                onChange={handleInputChange}
+                                onChange={handleRadiusChange}
                                 name="radius"
+                                type="number"
                                 placeholder="Radius: 50m"
                                 value={state.radius}
                             />
                         </div>
-              
+
                     </div>
                     <label>Drag pin to change your location:</label>
                     <div className="mapContainer">
-                    <GoogleMaps />
+                        <GoogleMaps />
                     </div>
                     <br />
-                    <button 
+                    <button
                         className="saveBtn"
                         onClick={handleFormSubmit}>
                         Save changes
                     </button>
                 </form>
-                <div className="col-md-4"
+                {/* <div className="col-md-4"
                     style={(state.status === "in" ?
                         { "display": "block" } : { "display": "none" })}>
                     <div className="card">
@@ -206,12 +221,12 @@ function Account() {
                     <br />
                     <br />
                     <div className="card">
-                        <div className="card-body">
-                            <div className="card-title">
+                        <div className="card-body"> */}
+                {/* <div className="card-title">
                                 <h3>Recent Activities</h3>
 
-                            </div>
-                            {books.length ? (
+                            </div> */}
+                {/* {books.length ? (
                                 <List>
                                     {books.map(book => (
                                         <div className="card" key={book._id}>
@@ -238,12 +253,14 @@ function Account() {
                                 </List>
                             ) : (
                                     <h3>No Results to Display</h3>
-                                )}
-                        </div>
+                                )} */}
+                {/* </div>
                     </div>
-                </div>
+                </div> */}
                 <div style={(state.status === "out" ? { "display": "block" } : { "display": "none" })}>
                     Whoa whoa! nothing to see here, sign in or sign up
+                    <Link to="/" style={{"textDecoration":"none"}}><button >Sign in/Sign up</button></Link>
+                    
             </div>
             </div>
 

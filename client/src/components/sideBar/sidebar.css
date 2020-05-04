@@ -1,0 +1,44 @@
+:root{
+    --hue:225;
+    --hueYellow:22;
+    --multiplier:1;
+    --baseLightness:85% ;
+    --oneShadeLighter:90%;
+    --twoShadeLighter:95%;
+    --threeShadeLighter:100%;
+    --fourShadeLighter:300%;
+    --oneShadeDarker:75%;
+    --twoShadeDarker:65%;
+    --threeShadeDarker:55%;
+    --fourShadeDarker:30%;
+    --saturation:40%;
+    --neongreen:hsla(25,100%,50%,1);
+    --newgreenDark:hsla(22,100%,40%,1);
+    --lightRed:hsla(360,100%,73%,1);
+    --btnWidth:30%;
+}
+.sidebar{
+    justify-content: center;
+    width: 250px;
+    height: 320px;
+    position: absolute;
+    right: 0px;
+    top:80px;
+    z-index: 100;
+    text-decoration: none;
+    padding-top: 5px;
+    border-radius: 0.8rem;
+    background:hsla(var(--hue),var(--saturation),var(--baseLightness),1);
+    box-shadow:  -3px -3px 5px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1),
+    inset  -3px -3px 10px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1),
+            3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1),
+    inset     3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1);
+}
+.sidebar button{
+    display: block;
+}
+.sidebar li{
+    margin-bottom: -15px;
+    background: none;
+    box-shadow: none;
+}

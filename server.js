@@ -26,18 +26,29 @@ admin.initializeApp({
 
 /////////////////////   testing FCM ////////////////////////
 app.post("/api/fire/reply", (req, res) => {
-  const name = req.body.name;
+  const {addressLine1,addressLine2,lat,lng}=req.body;
+  console.log(lat,lng);
+  console.log(addressLine1,addressLine2);
+  const requestID=req.body.request;
+  const sender = req.body.sender;
+  const userName=req.body.user;
+  console.log(userName);
   const id = JSON.stringify(req.body.id);
-  console.log("json request list: ", name, id);
+  console.log("json request list: ", sender, id);
   db.User
-    .findOne({ name: name })
+    .findOne({ name: sender })
     .then(user => {
       const token = user.fireToken;
       const message = {
         data: {
           msg: "Your neighbor has replied with the shopping list",
-          request: "request",
-          name: id
+          request: requestID,
+          name: id,
+          user:userName,
+          line1:addressLine1,
+          line2:addressLine2,
+          lat:JSON.stringify(lat),
+          lng:JSON.stringify(lng)
         },
         token: token
       }
@@ -56,7 +67,7 @@ app.post("/api/fire", (req, res) => {
   const id = req.body.id;
   const message = {
     data: {
-      msg: `${name} from your neighborhood is going to the shops,any requests?`,
+      msg: `${name} from your neighborhood is going to the shops,\n \n any requests?`,
       name: name,
       request: "none"
     },

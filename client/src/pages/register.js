@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import API from "../utils/API";
-import { Input } from "./Form";
+import { Input } from "../components/Form";
 
 function Register() {
 
@@ -26,9 +26,14 @@ function Register() {
         }
     };
     return (
-        <div>
+        <div >
+            <br />
+            <br />
+            <br />
+            <br />
+            <div className="row justify-content-center">
 
-                <form  >
+                <form className=" col-md-4" >
                     <label>User name:</label>
                     <input
                         onChange={handleInputChange}
@@ -64,6 +69,7 @@ function Register() {
 
 
                 </form>
+            </div>
 
         </div>
 

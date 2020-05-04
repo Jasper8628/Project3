@@ -33,32 +33,49 @@ function Requestie() {
     //         )
     //         .catch(err => console.log(err));
     // }
-    function reply(){
-        const name=state.sender;
-        const userName=state.userName;
-        const id=localStorage.getItem("userID");
+    function reply() {
+        const name = state.sender;
+        const userName = state.userName;
+        const id = localStorage.getItem("userID");
         // const userID=JSON.stringify(id);
-        const token=localStorage.getItem("userToken");
-        const data={
-            name:"user name UD as in undefined",
-            item1:formObject.item1,
-            item2:formObject.item2,
-            item3:formObject.item3,
-            item4:formObject.item4,
-            item5:formObject.item5,
-            addressLine1:state.addressLine1,
-            addressLine2:state.addressLine2,
-            status:"active"
+        const token = localStorage.getItem("userToken");
+        const data = {
+            name: "user name UD as in undefined",
+            item1: formObject.item1,
+            item2: formObject.item2,
+            item3: formObject.item3,
+            item4: formObject.item4,
+            item5: formObject.item5,
+            addressLine1: state.addressLine1,
+            addressLine2: state.addressLine2,
+            status: "active"
         }
         API.saveRequest(data)
-        .then(res=>{
-            console.log(res);
-        })
-        .catch(err=>console.log(err));
+            .then(res => {
+                const requestArray = res.data.shoppingList;
+                const length = requestArray.length - 1;
+                const latestRequest = requestArray[length]
+                console.log("reply to request:", latestRequest);
+                const position = {
+                  
+                }
+                const positionStr = JSON.stringify(position);
+                API.reply({
+                    sender: name,
+                    user: userName,
+                    id: id,
+                    request: latestRequest,  
+                    addressLine1: state.line1,
+                    addressLine2: state.line2,
+                    lat: state.lat,
+                    lng: state.lng
+                });
+            })
+            .catch(err => console.log(err));
         dispatch({ type: "closeNotice" })
 
         // API.saveRequest({request:formObject,status:"active",token:token});
-        API.reply({name:name,id:id});
+
     }
 
     // function handleFormSubmit(event) {
@@ -117,41 +134,73 @@ function Requestie() {
                             </button>
                         </div>
                         <div class="modal-body"> */}
-            <form className="form-control " >
-                <label>item</label>
-                <Input
-                    onChange={handleInputChange}
-                    name="item1"
-                    placeholder="item 1"
-                />
-                <label>item:</label>
-                <Input
-                    onChange={handleInputChange}
-                    name="item2"
-                    placeholder="item 2"
-                />
-                <label>item:</label>
-                <Input
-                    onChange={handleInputChange}
-                    name="item3"
-                    placeholder="item 3"
-                />
-                <label>item:</label>
-                <Input
-                    onChange={handleInputChange}
-                    name="item4"
-                    placeholder="item 4"
-                />
-                <label>item:</label>
-                <Input
-                    onChange={handleInputChange}
-                    name="item5"
-                    placeholder="item 5"
-                />
+            <form >
+                <div className="row">
+                    <div className="col-md-6 col-sm-6">
+                        <label>Items</label>
+                        <input
+                            onChange={handleInputChange}
+                            name="item1"
+                            placeholder="item 1"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item2"
+                            placeholder="item 2"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item3"
+                            placeholder="item 3"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item4"
+                            placeholder="item 4"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item5"
+                            placeholder="item 5"
+                        />
+
+                    </div>
+
+                    <div className="col-md-6 col-sm-6">
+                        <label>Quantity</label>
+                        <input
+                            onChange={handleInputChange}
+                            name="item1"
+                            placeholder="item 1"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item2"
+                            placeholder="item 2"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item3"
+                            placeholder="item 3"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item4"
+                            placeholder="item 4"
+                        />
+                        <input
+                            onChange={handleInputChange}
+                            name="item5"
+                            placeholder="item 5"
+                        />
+
+                    </div>
+
+                </div>
             </form>
             <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={handleClose}>Close</button>
-                <button type="button" className="btn btn-success" onClick={reply}>Request it!</button>
+                <button type="button" onClick={handleClose}>Close</button>
+                <button type="button" onClick={reply}>Request it!</button>
             </div>
             {/* </div>
                       

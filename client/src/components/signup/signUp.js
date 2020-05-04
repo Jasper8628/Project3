@@ -3,6 +3,7 @@ import API from "../../utils/API";
 import { Input } from "../Form";
 import { useCountContext } from "../../utils/GlobalState";
 import "./signUp.css";
+import {Link} from "react-dom";
 
 function SignUp() {
     const [formObject, setFormObject] = useState({});
@@ -81,15 +82,7 @@ function SignUp() {
             <div className="signup-container">
                 <button
                     className="signinBtn"
-                    onClick={logOut}
-                    style={{ "display": `${state.logout}` }}>
-                    Log out
-                </button>
-
-                <button
-                    className="signinBtn"
                     data-toggle="modal"
-                    style={{ "display": `${state.login}` }}
                     data-target="#exampleModal">
                     Sign In/Sign Up
                   </button>

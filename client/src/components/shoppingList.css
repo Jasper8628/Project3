@@ -1,0 +1,27 @@
+.checkBox{
+    margin-top: 4px;
+    box-shadow: none;
+    width: 18px;
+    height: 18px;
+
+}
+.checkBox:checked{
+    
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+}
+
+.checkBox:active{
+    
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+}
+
+.checkBox:focus{
+    
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+}

@@ -3,6 +3,7 @@ import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker, Circle } fr
 import Geocode from "react-geocode";
 import mapStyle from "../assets/mapStyle";
 import { useCountContext } from "../utils/GlobalState";
+import API from '../utils/API';
 Geocode.setApiKey("AIzaSyCxo5m4EhnOvW9TOdazdQRHhjWo4cyOQ54");
 Geocode.enableDebug();
 const api = "AIzaSyCxo5m4EhnOvW9TOdazdQRHhjWo4cyOQ54";
@@ -10,6 +11,7 @@ const api = "AIzaSyCxo5m4EhnOvW9TOdazdQRHhjWo4cyOQ54";
 function GoogleMaps(props) {
 
     const [state, dispatch] = useCountContext();
+    const [selectedUser, setSelectedUser] = useState();
     const [mapPosition, setMapPosition] = useState({
         lat: "",
         lng: ""
@@ -52,12 +54,31 @@ function GoogleMaps(props) {
                 dispatch({ type: "drag", lat: newLat, lng: newLng, postcode: postcode });
             })
     }
+    function handleAccept(event) {
+        const btnWidth = state.requests.length + 4;
+        const newWidth = 100 / btnWidth;
+        const root = document.documentElement;
+        root.style.setProperty('--btnWidth', `${newWidth}%`);
+
+        console.log("clicked infoWindow", selectedUser.request);
+        const request = {
+            name: selectedUser.name,
+            line1: selectedUser.line1,
+            line2: selectedUser.line2,
+            requestID: selectedUser.request
+        }
+        const data = {
+            name: state.userName,
+            to: selectedUser.name
+        }
+        // API.confirm(data);
+        dispatch({ type: "add", request: request })
+    }
     function Map() {
-        const [selectedUser, setSelectedUser] = useState();
         return (
             <div>
                 <GoogleMap
-                    defaultZoom={18}
+                    defaultZoom={17.5}
                     defaultCenter={state.lat ?
                         {
                             lat: state.lat,
@@ -103,17 +124,9 @@ function GoogleMaps(props) {
                                 setSelectedUser(null)
                             }}>
                             <div>
-                                <h4>{selectedUser.name}</h4>
-                                <p>My shopping list </p>
-                                <button onClick={()=>{
-                                    console.log("clicked infoWindow")
-                                    const request= {
-                                        name:selectedUser.name,
-                                        address:selectedUser.address,
-                                        shoppingList:selectedUser.shoppingList
-                                    }
-                                    dispatch({type:"add",request:request})
-                                }}>Accept</button>
+                                <p>{selectedUser.name}</p>
+                                <p>requests {selectedUser.numItem} items</p>
+                                <button onClick={handleAccept}>Accept</button>
                             </div>
                         </InfoWindow>
                     )}
@@ -127,9 +140,9 @@ function GoogleMaps(props) {
                                 lat: mapPosition.lat,
                                 lng: mapPosition.lng
                             }}
-                        options={{ strokeColor: "#FFD300" }}
+                        options={{ strokeColor: "#bbbbbb" }}
 
-                        radius={50}
+                        radius={state.radius}
                     />
                 </GoogleMap>
             </div>
@@ -142,7 +155,7 @@ function GoogleMaps(props) {
             <WrappedMap
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${api}`}
                 loadingElement={<div style={{ 'height': `100%` }} />}
-                containerElement={<div style={{ 'height': `400px` }} />}
+                containerElement={<div style={{ 'height': `300px` }} />}
                 mapElement={<div style={{ 'height': `100%` }} />}
             />
         </div>

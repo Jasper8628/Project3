@@ -2,12 +2,13 @@
 
 
 .navbar{   
+    width: 80%;
     display: flex;
     position: relative;
     height:70px;
     background: hsla(var(--hue), var(--saturation), var(--twoShadeDarker), 1);
-    box-shadow:  -3px -3px 2px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
-                  3px 3px 10px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1);
+    /* box-shadow:  -3px -3px 2px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                  3px 3px 10px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1); */
 
 
 }

@@ -3,6 +3,7 @@ import DeleteBtn from "../components/DeleteBtn";
 import API from "../utils/API";
 import { List, ListItem } from "../components/List";
 import { Input, TextArea, FormBtn } from "../components/Form";
+import "./shoppingList.css";
 
 function ShoppingList() {
     const [shoppingList, setList] = useState({
@@ -61,22 +62,24 @@ function ShoppingList() {
             </form>
             <div>
                 {shoppingList.list.length ? (
-                    <List>
+                    <ul>
                         {shoppingList.list.map(item => (
-                            <ListItem key={item._id}>
-                                <input type="checkbox" />
-                                <strong>
-                                    {item.name} x {item.quantity}
-                                </strong>
-                            </ListItem>
+                            <li key={item._id}>
+                                <div className="row justify-content-center">
+                                {/* <input className="checkBox" type="checkbox" /> */}
+                                <button> {item.name} x {item.quantity}</button>
+
+                                </div>
+
+                            </li>
                         ))}
-                        <FormBtn
+                        <button
                         // onClick={handleFormSubmit}
-                        >Save  </FormBtn>
-                    </List>
+                        >Save  </button>
+                    </ul>
 
                 ) : (
-                        <h6 className="myNoResult">No Results to Display</h6>
+                        <h6 className="myNoResult"></h6>
                     )}
 
             </div>

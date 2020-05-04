@@ -23,33 +23,35 @@ function Nav() {
     event.preventDefault();
     console.log(state);
   }
- 
+
   return (
-    <div className="row">
-    
-      <nav className="navbar col-md-12">
-        <a className="navbar-brand" href="/">
-          I-Request
+    <div className="navBackground">
+      <div className="row navRow">
+        <nav className="navbar col-md-12">
+          <a className="navbar-brand" href="/">
+            I-Request
       </a>
-      <h4 id="sliderH2">Going to the shops?</h4>
-        {/* <a className="nav-link" style={{"display":`${logoutState}`}} href="#">
+          <h4 id="sliderH2">GOING TO THE SHOPS?</h4>
+          {/* <a className="nav-link" style={{"display":`${logoutState}`}} href="#">
         <Logout/>
       </a> */}
-        <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
-          <SignUp>Testing</SignUp>
-        </a>
-        {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
+          <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
+            <SignUp>Testing</SignUp>
+          </a>
+          {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
         <Login />
       </a> */}
-        {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
+          {/* <a className="nav-link" style={{ "display": `${loginState}` }} href="#">
         <Requestie />
       </a> */}
-        <a className="nav-link" href="/account">
-          <button className="signinBtn" >Account</button>
-        </a>
-        {/* <button onClick={checkstate}>check state</button> */}
+          <a className="nav-link" href="/account">
+            <button className="signinBtn" >Account</button>
+          </a>
+          {/* <button onClick={checkstate}>check state</button> */}
 
-      </nav>
+        </nav>
+
+      </div>
 
     </div>
 

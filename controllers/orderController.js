@@ -19,7 +19,7 @@ module.exports = {
     console.log("order creat:", req.body);
     db.Order
       .create(req.body)
-      .then(({_id})=>db.User.findOneAndUpdate({},{$push:{orders:_id}},{new:true}) )
+      .then(({_id})=>db.User.findOneAndUpdate({},{$push:{shoppingList:_id}},{new:true}) )
       .then(dbModel => {
           res.json(dbModel)
       } )

@@ -23,6 +23,15 @@ export default {
  },
 
 
+
+
+ lookupOrder:function(data){
+   return axios.get("/api/order/"+data.id);
+ },
+
+//  updateOrder:function(data){
+//   return axios.put(("/api/order"+data.id),data);
+//  },
  saveRequest:function(data){
    return axios.post("/api/order/",data)
  },
@@ -49,17 +58,17 @@ export default {
   },
 
   saveUser: function (userData) {
-    return axios.post("api/user", userData);
+    return axios.post("/api/user", userData);
 
   },
   checkUser: function (userData) {
     console.log(userData);
-    return axios.post("api/user/auth", userData);
+    return axios.post("/api/user/auth", userData);
   },
 
   saveList: function (data) {
     const token = data.token;
-    return axios.post("api/user", {
+    return axios.post("/api/user", {
       item: data.item,
       headers: {
         "Authorization": `Bearer ${token}`
@@ -71,20 +80,16 @@ export default {
   sendFire: function (data) {
     const token = data.token;
     const name = data.name;
-    return axios.post("api/fire", {
+    return axios.post("/api/fire", {
       token: token,
       name: name
     })
   },
   reply: function (data) {
-    return axios.post("api/fire/reply", data)
+    return axios.post("/api/fire/reply", data)
+  },
+  confirm:function(data){
+    return axios.post("/api/fire/confirm",data)
   }
-
-
-
-
-
-
-
 
 };
