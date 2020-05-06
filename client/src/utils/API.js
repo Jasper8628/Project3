@@ -75,6 +75,9 @@ export default {
   },
   confirm:function(data){
     return axios.post("/api/fire/confirm",data)
+  },
+  cancel:function(data){
+    return axios.post("/api/fire/cancel",data)
   }
 
 };

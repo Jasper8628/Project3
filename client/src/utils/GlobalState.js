@@ -12,7 +12,7 @@ const reducer = (state, action) => {
         userID: "user",
         userName: "name",
         userToken: "token",
-        sidebar:"none"
+        sidebar: "none"
       }
     case "in":
       return {
@@ -23,9 +23,9 @@ const reducer = (state, action) => {
         userToken: action.userToken,
         lat: action.lat,
         lng: action.lng,
-        line1:action.line1,
-        line2:action.line2,
-        sidebar:"none"
+        line1: action.line1,
+        line2: action.line2,
+        sidebar: "none"
       }
     case "drag":
       return {
@@ -43,64 +43,72 @@ const reducer = (state, action) => {
     case "notice":
       return {
         ...state,
-        displayNotice:"block",
-        displayRequest:"none",
-        displayConfirm:"none",
-        sender:action.sender
+        displayNotice: "block",
+        displayRequest: "none",
+        displayConfirm: "none",
+        sender: action.sender
       }
     case "closeNotice":
       return {
         ...state,
-        displayNotice:"none"
-      } 
+        displayNotice: "none"
+      }
     case "reply":
       return {
         ...state,
-        displayNotice:"block",
-        displayRequest:"none",
-        displayConfirm:"block"
-      } 
-      case "confirm":
-        return {
-          ...state,
-          displayNotice:"block",
-          displayRequest:"none",
-          displayConfirm:"block"
-        } 
-       case "request":
+        displayNotice: "block",
+        displayRequest: "none",
+        displayConfirm: "block"
+      }
+    case "confirm":
       return {
         ...state,
-        displayNotice:"block",
-        displayRequest:"block"
+        displayNotice: "block",
+        displayRequest: "none",
+        displayConfirm: "block"
+      }
+    case "request":
+      return {
+        ...state,
+        displayNotice: "block",
+        displayRequest: "block"
       }
     case "add":
-      const requestList=state.requests;
-      requestList.push(action.request);
+      const requestList = state.requests;
+      const checkDuplicate = requestList.find(item => item._id === action.request._id);
+      if (!checkDuplicate) {
+        requestList.push(action.request);
+      }
       return {
         ...state,
-        requests:requestList
-      } 
+        requests: requestList
+      }
+    case "cancel":
+      return {
+        ...state,
+        requests: action.requests
+      }
     case "sidebar":
-      return{
+      return {
         ...state,
-        sidebar:"block"
-      }  
-      case "sidebarOff":
-      return{
-        ...state,
-        sidebar:"none"
+        sidebar: "block"
       }
-      case "signIn":
-      return{
+    case "sidebarOff":
+      return {
         ...state,
-        signIn:"block",
-        signUp:"none",
+        sidebar: "none"
       }
-      case "signUp":
-      return{
+    case "signIn":
+      return {
         ...state,
-        signIn:"none",
-        signUp:"block"
+        signIn: "block",
+        signUp: "none",
+      }
+    case "signUp":
+      return {
+        ...state,
+        signIn: "none",
+        signUp: "block"
       }
     default:
       throw new Error(`Invalid action type: ${action.type}`);
@@ -111,23 +119,23 @@ const CountProvider = ({ value = 0, ...props }) => {
   const [state, dispatch] = useReducer(
     reducer, {
     status: "out",
-    displayNotice:"none",
-    displayRequest:"none",
-    displayConfirm:"none",
-    requests:[],
-    sender:"sender",
+    displayNotice: "none",
+    displayRequest: "none",
+    displayConfirm: "none",
+    requests: [],
+    sender: "sender",
     signIn: "block",
     signUp: "none",
     userID: "user",
     userName: "name",
     userToken: "token",
     postcode: "",
-    radius:50,
+    radius: 50,
     lat: "",
     lng: "",
-    line1:"",
-    line2:"",
-    sidebar:"none"
+    line1: "",
+    line2: "",
+    sidebar: "none"
 
   });
 

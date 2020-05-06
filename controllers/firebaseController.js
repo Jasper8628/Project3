@@ -90,5 +90,27 @@ module.exports = {
             })
             .catch(err => console.log(err));
 
+    },
+    cancel: function (req, res) {
+        const { name, to,status } = req.body;
+        db.User
+            .findOne({ name: to })
+            .then(user => {
+                const token = user.fireToken;
+                const message = {
+                    data: {
+                        msg: `${name} has ${status} your request`,
+                        type: "cancel"
+                    },
+                    token: token
+                }
+                admin.messaging().send(message)
+                    .then(res => {
+                        console.log("confirm msg: ", res)
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+
     }
 }

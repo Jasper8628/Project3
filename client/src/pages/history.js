@@ -30,7 +30,6 @@ function History() {
                 const shoppingList = res.data.shoppingList;
                 const completedList = shoppingList.filter(item => (item.status !== "active"));
                 const activeList = shoppingList.filter(item => (item.status === "active"));
-                console.log(activeList, completedList);
                 setList({
                     active: activeList,
                     completed: completedList

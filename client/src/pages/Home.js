@@ -14,17 +14,16 @@ import Theme from "../components/theme";
 import { useCountContext } from "../utils/GlobalState";
 import Sidebar from "../components/sideBar/index";
 
-function Books() {
+function Home() {
   const [users, setUsers] = useState({ list: [] });
-  const [orderState,setOrderState]=useState({
-    items:[],
-    displayHome:"block",
-    displayOrder:"none",
-    address:"",
-    id:""
+  const [orderState, setOrderState] = useState({
+    items: [],
+    displayHome: "block",
+    displayOrder: "none",
+    address: "",
+    id: ""
   });
   const [state, dispatch] = useCountContext();
-  const [books, setBooks] = useState([]);
   const [formObject, setFormObject] = useState({});
   const [firebaseToken, setFirebaseToken] = useState();
   const [notestate, setNotice] = useState({
@@ -50,7 +49,7 @@ function Books() {
       const { user, line1, line2, type } = message.data['firebase-messaging-msg-data'].data;
       const testLat = message.data['firebase-messaging-msg-data'].data.lat;
       const testLng = message.data['firebase-messaging-msg-data'].data.lng;
-      console.log("logging fire reply type: ",type);
+      console.log("logging fire reply type: ", type);
       if (type === "reply") {
         console.log(name);
         const request = {
@@ -72,7 +71,7 @@ function Books() {
               line1: line1,
               line2: line2,
               numItem: num,
-              request: requestID
+              _id: requestID
             }
             const newList = users.list;
             const names = [];
@@ -91,12 +90,12 @@ function Books() {
           msg: text,
           type: type
         });
-      } else if(type==="confirm"){
+      } else if (type === "confirm"||type==="cancel") {
         setNotice({
           msg: text,
           type: type
         });
-        dispatch({ type: "reply"})
+        dispatch({ type: "reply" })
       }
       else {
         console.log(text);
@@ -107,7 +106,6 @@ function Books() {
         });
         dispatch({ type: "notice", sender: name })
       }
-
     });
   }, []);
 
@@ -117,7 +115,6 @@ function Books() {
   });
 
   function customSlider(event) {
-
     const value = parseInt(event.target.value);
     console.log(value);
     let background = `linear-gradient( 90deg, var(--neongreen) ${value}%,
@@ -130,17 +127,16 @@ function Books() {
   }
 
   function handleFire(event) {
-    const data={
-      postcode:parseInt(state.postcode),
-      lat:state.lat,
-      lng:state.lng,
-      name:localStorage.getItem("userName"),
-      radius:state.radius,
-      token:localStorage.getItem("fireToken")
+    const data = {
+      postcode: parseInt(state.postcode),
+      lat: state.lat,
+      lng: state.lng,
+      name: localStorage.getItem("userName"),
+      radius: state.radius,
+      token: localStorage.getItem("fireToken")
     }
-    console.log("logging from handfire:", state,data);
+    console.log("logging from handfire:", state, data);
     const name = localStorage.getItem("userName");
-   
     console.log("logging from handleFire: ", name);
     API.sendFire(data);
 
@@ -163,21 +159,7 @@ function Books() {
       });
   }
 
-  if (state.status === "in") {
-
-  }
-  function checkReply(event) {
-    event.preventDefault()
-    const newList = users.list;
-    newList.push(userState);
-    setUsers({
-      list: newList
-    })
-    console.log(users.list);
-  }
-
   function loadUser() {
-    dispatch({ type: "sidebarOff" })
     const id = localStorage.getItem("userID");
     const token = localStorage.getItem("reactToken");
     const user = {
@@ -186,14 +168,29 @@ function Books() {
     }
     API.getUser(user)
       .then(res => {
+        const acceptedList = res.data.acceptedList;
+        const accepted = acceptedList.filter(item => (item.status === "active"));
+        for(var item of accepted){
+          dispatch({type:"add",request:item});
+        }
+        console.log(accepted);
+        setUsers({
+          list:accepted
+        })
         const name = res.data.name;
         const line1 = res.data.addressLine1;
         const line2 = res.data.addressLine2;
         const lat = parseFloat(res.data.lat);
         const lng = parseFloat(res.data.lng);
-        
-                    console.log("logging POPULATED :",res);
-        dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2, userName: name,userID:id });
+        dispatch({
+          type: "in",
+          lat: lat,
+          lng: lng,
+          line1: line1,
+          line2: line2,
+          userName: name,
+          userID: id
+        });
       })
       .catch(err => console.log(err));
   }
@@ -224,28 +221,29 @@ function Books() {
     const data = {
       id: ID
     }
-    const list = state.requests;
-    let line1="";
-    let line2="";
-    let customerName="";
-    for(var request of list){
-      if(request.requestID===ID){
-        line1=request.line1;
-        line2=request.line2;
-        customerName=request.name;
-      }
-    }
-    const address=line1+" "+line2;
+    // const list = state.requests;
+    // let line1 = "";
+    // let line2 = "";
+    // let customerName = "";
+    // for (var request of list) {
+    //   if (request._id === ID) {
+    //     line1 = request.line1;
+    //     line2 = request.line2;
+    //     customerName = request.name;
+    //   }
+    // }
+    // const address = line1 + " " + line2;
     API.lookupOrder(data)
       .then(res => {
+        console.log("looking lookup:",res);
         const items = []
         items.push(res.data.item1, res.data.item2, res.data.item3, res.data.item4, res.data.item5);
         const requestedItems = items.filter(item => (item !== undefined));
         setOrderState({
           displayHome: "none",
           displayOrder: "block",
-          name: customerName,
-          address: address,
+          name: res.data.name,
+          address: res.data.addressLine1+" "+res.data.addressLine2,
           items: requestedItems,
           id: ID
         })
@@ -261,13 +259,27 @@ function Books() {
     })
   }
   function updateOrder(event) {
-    const name=state.userName;
+    const name = state.userName;
     const id = event.target.value;
     const status = `${event.target.name} by ${name} `;
+    const newList=state.requests.filter(item=>(item._id!==id));
+    const receipient=state.requests.find(item=>item._id===id);
+    dispatch({type:"cancel",requests:newList});
+    homeListBtn();
     const data = {
       id: id,
       status: status
     }
+    const cancelInfo={
+      name:state.userName,
+      to:receipient.name,
+      status:event.target.name
+    }
+    API
+    .cancel(cancelInfo)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+    
     API
       .updateOrder(data)
       .then(res => console.log(res))
@@ -326,8 +338,8 @@ function Books() {
                       {state.requests.map(request => (
 
                         <button
-                          key={request.requestID}
-                          name={request.requestID}
+                          key={request._id}
+                          name={request._id}
                           onClick={lookupRequest}
                           className="myContentBtn fas fa-gifts"></button>
                       ))}
@@ -339,24 +351,24 @@ function Books() {
                       <button className="myContentBtn fas fa-store" onClick={homeListBtn}></button>
                     </div>
                   )}
-                <div className="myContent" style={{"display":`${orderState.displayHome}`}}>
+                <div className="myContent" style={{ "display": `${orderState.displayHome}` }}>
                   <ShoppingList />
                 </div>
-                 <div className="myContent" style={{"display":`${orderState.displayOrder}`}}>
-                   <p>{orderState.name} </p>
-                   <p>{orderState.address}</p>
-                   {orderState.items.length?(
-                     <ul>
-                       {orderState.items.map(item=>(
-                         <li key={item.id}>{item} </li>
-                       ))}
-                     </ul>
-                   ):(<p> </p> )}
-                   <button name="cancelled" value={orderState.id} onClick={updateOrder}>Cancel</button>
-                   <button name="completed" value={orderState.id} onClick={updateOrder}>Complete</button>
+                <div className="myContent" style={{ "display": `${orderState.displayOrder}` }}>
+                  <p>{orderState.name} </p>
+                  <p>{orderState.address}</p>
+                  {orderState.items.length ? (
+                    <ul>
+                      {orderState.items.map(item => (
+                        <li key={item}>{item} </li>
+                      ))}
+                    </ul>
+                  ) : (<p> </p>)}
+                  <button name="cancelled" value={orderState.id} onClick={updateOrder}>Cancel</button>
+                  <button name="completed" value={orderState.id} onClick={updateOrder}>Complete</button>
                 </div>
               </div>
-            </div>        
+            </div>
           </div>
         </div>
       </div>
@@ -364,4 +376,4 @@ function Books() {
   );
 }
 
-export default Books;
+export default Home;

@@ -35,7 +35,6 @@ function App() {
               <Route exact path="/about"> <About /></Route> 
               <Route exact path="/home"> <Home /></Route> 
               <Route exact path="/register"> <Register /></Route> 
-              <Route ><NoMatch /></Route>
             </Switch>
 
           </div>

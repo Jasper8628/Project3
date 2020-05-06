@@ -61,12 +61,12 @@ function GoogleMaps(props) {
         const root = document.documentElement;
         root.style.setProperty('--btnWidth', `${newWidth}%`);
 
-        console.log("clicked infoWindow", selectedUser.request);
+        console.log("clicked infoWindow", selectedUser._id);
         const request = {
             name: selectedUser.name,
             line1: selectedUser.line1,
             line2: selectedUser.line2,
-            requestID: selectedUser.request
+            _id: selectedUser._id
         }
         const data = {
             name: state.userName,
@@ -74,7 +74,7 @@ function GoogleMaps(props) {
         }
         API.acceptOrder({
             userID:state.userID,
-            requestID:selectedUser.request
+            requestID:selectedUser._id
         });
         API.confirm(data);
         dispatch({ type: "add", request: request })
@@ -112,7 +112,7 @@ function GoogleMaps(props) {
                     {props.userList ?
                         (props.userList.map(user => (
                             <Marker
-                                key={user.id}
+                                key={user._id}
                                 position={{ lat: user.lat, lng: user.lng }}
                                 onClick={() => {
                                     setSelectedUser(user);

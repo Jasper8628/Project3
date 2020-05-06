@@ -12,6 +12,10 @@ function Requestie() {
         const { name, value } = event.target;
         setFormObject({ ...formObject, [name]: value })
     };
+    function handleAcountChange(event) {
+        const { name, value } = event.target;
+        setFormObject({ ...formObject, [name]: " x "+value })
+    };
     function handleClose(event) {
         event.preventDefault();
         dispatch({ type: "closeNotice" })
@@ -41,13 +45,16 @@ function Requestie() {
         const token = localStorage.getItem("userToken");
         const data = {
             userID: id,
-            item1: formObject.item1,
-            item2: formObject.item2,
-            item3: formObject.item3,
-            item4: formObject.item4,
-            item5: formObject.item5,
-            addressLine1: state.addressLine1,
-            addressLine2: state.addressLine2,
+            name:name,
+            item1: formObject.item1+formObject.amount1,
+            item2: formObject.item2+formObject.amount2,
+            item3: formObject.item3+formObject.amount3,
+            item4: formObject.item4+formObject.amount4,
+            item5: formObject.item5+formObject.amount5,
+            addressLine1: state.line1,
+            addressLine2: state.line2,
+            lat:state.lat,
+            lng:state.lng,
             status: "active"
         }
         API.saveRequest(data)
@@ -77,63 +84,8 @@ function Requestie() {
         // API.saveRequest({request:formObject,status:"active",token:token});
 
     }
-
-    // function handleFormSubmit(event) {
-    //     event.preventDefault();
-    //         const request = {
-    //             item1: formObject.item1,
-    //             item2: formObject.item2,
-    //             item3: formObject.item3,
-    //             item4: formObject.item4,
-    //             item5: formObject.item5,
-    //         }
-    //         API.checkUser(user)
-    //             .then(res => {
-    //                 const token = res.data.token;
-    //                 const id = res.data.user._id;
-    //                 const name = res.data.user.name;
-    //                 console.log(res);
-    //                 localStorage.setItem("reactToken", token);
-    //                 localStorage.setItem("userID", id);
-    //                 localStorage.setItem("userName", name);
-    //                 console.log(id);
-    //                 setLogState({
-    //                     message: `Login successful, welcome ${name}!`,
-    //                     color: "text-success"
-    //                 })
-    //                 console.log(token, id, name);
-    //                 dispatch({
-    //                     type: "in",
-    //                     userName: name,
-    //                     userID: id,
-    //                     userToken: token
-    //                 });
-    //             })
-    //             .catch(err => {
-    //                 setLogState({
-    //                     ...state,
-    //                     message: "Invalid credentials",
-    //                 })
-    //                 console.log(err)
-    //             });
-
-    // }
     return (
         <div style={{"display":`${state.displayRequest}`}}>
-            {/* <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong">
-                Make A Request!
-</button>
-
-            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">My Request</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body"> */}
             <form >
                 <div className="row">
                     <div className="col-md-6 col-sm-6">
@@ -169,29 +121,29 @@ function Requestie() {
                     <div className="col-md-6 col-sm-6">
                         <label>Quantity</label>
                         <input
-                            onChange={handleInputChange}
-                            name="item1"
-                            placeholder="item 1"
+                            onChange={handleAcountChange}
+                            name="amount1"
+                            placeholder="amount for item 1"
                         />
                         <input
-                            onChange={handleInputChange}
-                            name="item2"
-                            placeholder="item 2"
+                            onChange={handleAcountChange}
+                            name="amount2"
+                            placeholder="amount for item 2"
                         />
                         <input
-                            onChange={handleInputChange}
-                            name="item3"
-                            placeholder="item 3"
+                            onChange={handleAcountChange}
+                            name="amount3"
+                            placeholder="amount for item 3"
                         />
                         <input
-                            onChange={handleInputChange}
-                            name="item4"
-                            placeholder="item 4"
+                            onChange={handleAcountChange}
+                            name="amount4"
+                            placeholder="amount for item 4"
                         />
                         <input
-                            onChange={handleInputChange}
-                            name="item5"
-                            placeholder="item 5"
+                            onChange={handleAcountChange}
+                            name="amount5"
+                            placeholder="amount for item 5"
                         />
 
                     </div>

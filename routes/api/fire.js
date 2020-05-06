@@ -5,7 +5,8 @@ const firebaseController = require("../../controllers/firebaseController");
 router
     .post("/", firebaseController.send)
     .post("/reply", firebaseController.reply)
-    .post("/confirm", firebaseController.confirm);
+    .post("/confirm", firebaseController.confirm)
+    .post("/cancel", firebaseController.cancel);
 
 
 module.exports = router;
