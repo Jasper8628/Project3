@@ -61,7 +61,8 @@ function ShoppingList() {
         localStorage.setItem("iRequestShoppingList","");
         setList({
             list:[]
-        })
+        });
+        setBtnState({});
     }
 
 

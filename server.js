@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3001;
 const admin = require("firebase-admin");
 var serviceAccount = require("./project3-6c48c-firebase-adminsdk-yr5ne-e7a105743c.json");
 const db = require("./models");
+const path=require("path");
 
 
 // Define middleware here
@@ -15,9 +16,9 @@ app.use(express.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
-  // app.all('*',(req, res) => {
-  //   res.sendFile(path.join(__dirname, 'reactjs/dist/index.html'));
-  //   });
+  app.all('*',(req, res) => {
+    res.sendFile(path.join(__dirname, 'reactjs/dist/index.html'));
+    });
 }
 // Add routes, both API and view
 app.use(routes);
