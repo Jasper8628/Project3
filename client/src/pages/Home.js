@@ -51,7 +51,7 @@ function Books() {
       const testLat = message.data['firebase-messaging-msg-data'].data.lat;
       const testLng = message.data['firebase-messaging-msg-data'].data.lng;
       console.log("logging fire reply type: ",type);
-      if (requestID !== "none") {
+      if (type === "reply") {
         console.log(name);
         const request = {
           id: requestID
@@ -87,7 +87,18 @@ function Books() {
             }
           })
         dispatch({ type: "reply" })
-      } else {
+        setNotice({
+          msg: text,
+          type: type
+        });
+      } else if(type==="confirm"){
+        setNotice({
+          msg: text,
+          type: type
+        });
+        dispatch({ type: "reply"})
+      }
+      else {
         console.log(text);
         console.log(name);
         setNotice({
@@ -180,19 +191,12 @@ function Books() {
         const line2 = res.data.addressLine2;
         const lat = parseFloat(res.data.lat);
         const lng = parseFloat(res.data.lng);
-        console.log("logging account: ", lat, lng, line1, line2);
-        dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2, userName: name });
+        
+                    console.log("logging POPULATED :",res);
+        dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2, userName: name,userID:id });
       })
       .catch(err => console.log(err));
   }
-
-  // function deleteBook(id) {
-  //   API.deleteBook(id)
-  //     .then(res => loadBooks())
-  //     .catch(err => console.log(err));
-  // }
-
-
   let unFocused = true;
   function handleSideBar(event) {
     if (unFocused) {
@@ -214,7 +218,6 @@ function Books() {
     unFocused = true
     console.log(unFocused, state.sidebar)
   }
-
 
   function lookupRequest(event) {
     const ID = event.target.name;
@@ -258,8 +261,9 @@ function Books() {
     })
   }
   function updateOrder(event) {
-    const id = "id";
-    const status = event.target.name;
+    const name=state.userName;
+    const id = event.target.value;
+    const status = `${event.target.name} by ${name} `;
     const data = {
       id: id,
       status: status
@@ -305,7 +309,6 @@ function Books() {
           {/* <button className="btn btn-primary" onClick={handleBinding}>firebase button</button>
           <button className="btn btn-primary" onClick={handleFire}>admin</button> */}
           <Notice
-            type={notestate.type}
             replyTo={notestate.replyTo}
             text={notestate.msg} />
           {/* <button onClick={loadUser}>user</button>
@@ -349,8 +352,8 @@ function Books() {
                        ))}
                      </ul>
                    ):(<p> </p> )}
-                   <button>Cancel</button>
-                   <button>Complete</button>
+                   <button name="cancelled" value={orderState.id} onClick={updateOrder}>Cancel</button>
+                   <button name="completed" value={orderState.id} onClick={updateOrder}>Complete</button>
                 </div>
               </div>
             </div>        

@@ -18,6 +18,10 @@ const userSchema = new Schema({
     type:Schema.Types.ObjectId,
     ref:"Order"
   }],
+  acceptedList: [{
+    type:Schema.Types.ObjectId,
+    ref:"Order"
+  }],
   history:[]
 });
 

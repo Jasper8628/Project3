@@ -25,15 +25,8 @@ function Account() {
     const [formObject, setFormObject] = useState({});
     useEffect(() => {
         loadUser();
-        loadBooks();
     }, []);
-    function loadBooks() {
-        API.getBooks()
-            .then(res =>
-                setBooks(res.data)
-            )
-            .catch(err => console.log(err));
-    };
+  
 
     function loadUser() {
         let lat = '';
@@ -57,6 +50,7 @@ function Account() {
             }
             API.getUser(user)
                 .then(res => {
+                    console.log("logging POPULATED :",res);
                     const lat = res.data.lat;
                     const lng = res.data.lng;
                     const line1 = res.data.line1;

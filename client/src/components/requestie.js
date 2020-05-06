@@ -40,7 +40,7 @@ function Requestie() {
         // const userID=JSON.stringify(id);
         const token = localStorage.getItem("userToken");
         const data = {
-            name: "user name UD as in undefined",
+            userID: id,
             item1: formObject.item1,
             item2: formObject.item2,
             item3: formObject.item3,
@@ -119,7 +119,7 @@ function Requestie() {
 
     // }
     return (
-        <div>
+        <div style={{"display":`${state.displayRequest}`}}>
             {/* <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong">
                 Make A Request!
 </button>

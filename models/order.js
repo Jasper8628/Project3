@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-  name:{type:String,required:true},
+  userID:{type:String,required:true},
   item1:{type:String},
   item2:{type:String},
   item3:{type:String},

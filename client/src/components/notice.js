@@ -17,6 +17,7 @@ function Notice(props) {
     });
     function handleRequest(event) {
         event.preventDefault();
+        dispatch({type:"request"})
         setShowForm({
             requestForm:"block",
             noticeButton:"none",
@@ -64,16 +65,16 @@ function Notice(props) {
                         </div>
                         <div className="modal-body">
                             <p>{props.text}</p>
-                            <div style={{ "display": `${showForm.requestForm}` }}>
+                            <div style={{ "display": `${state.displayRequest}` }}>
                                 <Requestie />
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <div style={{"display":`${showForm.noticeButton}`}}>
+                            <div style={{"display":(state.displayRequest==="block" || state.displayConfirm==="block")?("none"):("block")}}>
                                 <button type="button"  onClick={handleRequest}>Yes Actually...</button>
                                 <button type="button"  data-dismiss="modal" onClick={handleNotice}>No Thanks</button>
                             </div>
-                            <div style={{"display":`${showForm.confirmButton}`}} onClick={handleNotice} ><button>OK</button> </div>
+                            <div style={{"display":`${state.displayConfirm}`}} onClick={handleNotice} ><button>OK</button> </div>
 
                         </div>
                     </div>

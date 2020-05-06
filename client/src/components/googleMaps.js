@@ -55,6 +55,7 @@ function GoogleMaps(props) {
             })
     }
     function handleAccept(event) {
+        console.log(state.userID);
         const btnWidth = state.requests.length + 4;
         const newWidth = 100 / btnWidth;
         const root = document.documentElement;
@@ -71,7 +72,11 @@ function GoogleMaps(props) {
             name: state.userName,
             to: selectedUser.name
         }
-        // API.confirm(data);
+        API.acceptOrder({
+            userID:state.userID,
+            requestID:selectedUser.request
+        });
+        API.confirm(data);
         dispatch({ type: "add", request: request })
     }
     function Map() {

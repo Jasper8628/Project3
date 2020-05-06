@@ -5,7 +5,7 @@ import "./sidebar.css";
 import { useCountContext } from "../../utils/GlobalState";
 
 function SideBar() {
-const [state, dispatch] = useCountContext();
+    const [state, dispatch] = useCountContext();
     switch (state.status) {
         case "in":
             return (
@@ -13,18 +13,23 @@ const [state, dispatch] = useCountContext();
                     <ul>
                         <li>
                             <Link to="/history" style={{ "textDecoration": "none" }}>
-                                <button>History</button> </Link>
+                                <button>History</button>
+                            </Link>
                         </li>
                         <br />
                         <li>
-                            <Link to="/account" style={{ "textDecoration": "none" }}><button>Account</button></Link>
+                            <Link to="/account" style={{ "textDecoration": "none" }}>
+                                <button>Account</button>
+                            </Link>
                         </li>
                         <li>
                             <Logout />
                         </li>
                         <br />
                         <li>
-                            <button>About iRequest</button>
+                            <Link to="/about" style={{ "textDecoration": "none" }}>
+                                <button>About iRequest</button>
+                            </Link>
                         </li>
                     </ul>
                 </div>
@@ -33,8 +38,8 @@ const [state, dispatch] = useCountContext();
 
             return (
                 <div className="sidebar">
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <ul>
                         <li>
                             <Link to="/" style={{ "textDecoration": "none" }}>
@@ -43,13 +48,13 @@ const [state, dispatch] = useCountContext();
 
                         </li>
                         <li>
-                            
+
                             <button>About iRequest</button>
                         </li>
                     </ul>
                 </div>
-       
-    )
+
+            )
     }
 }
 

@@ -85,6 +85,8 @@ module.exports = {
         console.log("user ID:", req.params.id);
         db.User
         .findById({_id:req.params.id})
+        .populate("acceptedList")
+        .populate("shoppingList")
         .then(user=>res.json(user))
         .catch(err=> res.status(422).json(err));
     },

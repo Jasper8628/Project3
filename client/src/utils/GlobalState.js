@@ -12,16 +12,12 @@ const reducer = (state, action) => {
         userID: "user",
         userName: "name",
         userToken: "token",
-        login: "block",
-        logout: "none",
         sidebar:"none"
       }
     case "in":
       return {
         ...state,
         status: "in",
-        login:"none",
-        logout:"block",
         userName: action.userName,
         userID: action.userID,
         userToken: action.userToken,
@@ -48,6 +44,8 @@ const reducer = (state, action) => {
       return {
         ...state,
         displayNotice:"block",
+        displayRequest:"none",
+        displayConfirm:"none",
         sender:action.sender
       }
     case "closeNotice":
@@ -58,7 +56,22 @@ const reducer = (state, action) => {
     case "reply":
       return {
         ...state,
-        displayReply:"block"
+        displayNotice:"block",
+        displayRequest:"none",
+        displayConfirm:"block"
+      } 
+      case "confirm":
+        return {
+          ...state,
+          displayNotice:"block",
+          displayRequest:"none",
+          displayConfirm:"block"
+        } 
+       case "request":
+      return {
+        ...state,
+        displayNotice:"block",
+        displayRequest:"block"
       }
     case "add":
       const requestList=state.requests;
@@ -77,6 +90,18 @@ const reducer = (state, action) => {
         ...state,
         sidebar:"none"
       }
+      case "signIn":
+      return{
+        ...state,
+        signIn:"block",
+        signUp:"none",
+      }
+      case "signUp":
+      return{
+        ...state,
+        signIn:"none",
+        signUp:"block"
+      }
     default:
       throw new Error(`Invalid action type: ${action.type}`);
   }
@@ -87,11 +112,12 @@ const CountProvider = ({ value = 0, ...props }) => {
     reducer, {
     status: "out",
     displayNotice:"none",
-    displayReply:"none",
+    displayRequest:"none",
+    displayConfirm:"none",
     requests:[],
     sender:"sender",
-    login: "block",
-    logout: "none",
+    signIn: "block",
+    signUp: "none",
     userID: "user",
     userName: "name",
     userToken: "token",

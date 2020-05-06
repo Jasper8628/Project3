@@ -67,10 +67,8 @@ function Landing() {
     };
     function handleSignUp(event){
         event.preventDefault();
-        setSignUpState({
-            signIn:"none",
-            signUp:"block"
-        });
+        dispatch({type:"signUp"})
+    
     }
     switch(state.status){
         case "in":
@@ -85,9 +83,6 @@ function Landing() {
             <br/>
             <br/>
             <br/>
-            <br/>
-            <br/>
-            <br/>
             
             <br/>
             <br/>
@@ -95,7 +90,7 @@ function Landing() {
             <br/>
             <br/>
             <br/>
-            <form className="landingContainer" style={{"display":`${signUpState.signIn}`}}>
+            <form className="landingContainer" style={{"display":`${state.signIn}`}}>
                 <label>User Email:</label>
                 <input
                     onChange={handleInputChange}
@@ -124,7 +119,7 @@ function Landing() {
                 <br />
             </form>
             <div className="landingContainer" 
-            style={{"display":`${signUpState.signUp}`}}>
+            style={{"display":`${state.signUp}`}}>
                 <Register/>
             </div>
             <br/>
