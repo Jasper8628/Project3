@@ -25,3 +25,12 @@
     width: 18px;
     height: 18px;
 }
+.shoppingListBtn{
+    text-decoration: line-through;
+    box-shadow: -1.2px -1.2px 3px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
+                inset -1.5px -1.5px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
+    
+                 1.2px 1.2px 3px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1),
+                inset 1.5px 1.5px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1);
+    
+}

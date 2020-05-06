@@ -13,6 +13,7 @@ import Landing from "./pages/landing";
 import Notice from "./components/notice";
 import History from "./pages/history";
 import About from "./pages/about";
+import Admin from "./pages/admin";
 
 
 
@@ -34,6 +35,7 @@ function App() {
               <Route exact path="/history"> <History /></Route> 
               <Route exact path="/about"> <About /></Route> 
               <Route exact path="/home"> <Home /></Route> 
+              <Route exact path="/admin"> <Admin/></Route> 
               <Route exact path="/register"> <Register /></Route> 
             </Switch>
 

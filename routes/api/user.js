@@ -21,6 +21,7 @@ const auth = require("../../middleware/auth");
 router
 .route("/")
 .get( userController.findAll)
+.delete(userController.delete)
 .post(userController.register);
 router
 .route("/auth")

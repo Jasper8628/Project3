@@ -26,6 +26,13 @@ export default {
    return axios.post("/api/order/",data)
  },
 
+ getUsers:function(){
+   return axios.get("/api/user");
+ },
+ deleteUser:function(data){
+   return axios.delete("/api/user",data);
+ },
+
 
   getUser: function (data) {
     const token = data.token;

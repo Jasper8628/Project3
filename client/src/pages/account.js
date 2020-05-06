@@ -74,17 +74,6 @@ function Account() {
             dispatch({ type: "radius", radius: radius })
 
         }
-        // if (value === "") dispatch({
-        //     type: "radius",
-        //     radius: 0
-        // });
-
-        // const radius = parseInt(event.target.value);
-
-        // dispatch({
-        //     type: "radius",
-        //     radius: radius
-        // });
     }
 
     function handleInputChange(event) {

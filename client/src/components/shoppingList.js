@@ -6,29 +6,32 @@ import { Input, TextArea, FormBtn } from "../components/Form";
 import "./shoppingList.css";
 
 function ShoppingList() {
+    useEffect(()=>{
+        loadList();
+
+    },[]);
     const [shoppingList, setList] = useState({
         list: []
     });
-    const [btnState, setBtnState] = useState({})
+    const [btnState, setBtnState] = useState({});
     const [formObject, setFormObject] = useState({});
+
+
+    function loadList(){
+       if(localStorage.getItem("iRequestShoppingList")){
+           const localList=localStorage.getItem("iRequestShoppingList");
+           setList({
+               list:JSON.parse(localList)
+           })
+       }
+    }
+
+
 
     function handleInputChange(event) {
         const { name, value } = event.target;
         setFormObject({ ...formObject, [name]: value })
     };
-
-    // function handleFormSubmit(event) {
-    //     event.preventDefault();
-    //         const book = {
-    //             title: formObject.title,
-    //             author: formObject.author,
-    //             synopsis: formObject.synopsis
-    //         }
-    //         API.saveBook(book)
-    //             .then(res => loadBooks())
-    //             .catch(err => console.log(err));
-
-    // };
     function handleAdd(event) {
         event.preventDefault();
         const item = {
@@ -37,10 +40,28 @@ function ShoppingList() {
         }
         const newList = shoppingList.list;
         newList.push(item);
+        localStorage.setItem("iRequestShoppingList",JSON.stringify(newList));
         setList({
             list: newList
         });
         console.log(shoppingList.list);
+    }
+    function handleClick(event){
+        const name=event.target.name;
+        console.log(name);
+        if(btnState[name]!=="pressed"){
+            setBtnState({
+                ...btnState,
+                [name]:"pressed"
+            })
+        }
+    }
+    function handleClear(event){
+        event.preventDefault();
+        localStorage.setItem("iRequestShoppingList","");
+        setList({
+            list:[]
+        })
     }
 
 
@@ -65,18 +86,21 @@ function ShoppingList() {
             <div>
                 {shoppingList.list.length ? (
                     <ul>
-                        {shoppingList.list.map(item => (
-                            <li key={shoppingList.list.indexOf(item)}>
+                        {shoppingList.list.map((item, index) => (
+                            <li key={index}>
                                 <div className="row justify-content-start">
                                     {/* <input className="checkBox" type="checkbox" /> */}
-                                    <button className="shoppingListBtn"
+                                    <button 
+                                    name={index}
+                                    onClick={handleClick}
+                                    className={btnState[index]==="pressed"?("shoppingListBtn"):("")}   
                                     > {item.name} x {item.quantity}</button>
 
                                 </div>
 
                             </li>
                         ))}
-                        <button>Save  </button>
+                        <button onClick={handleClear}>Clear  </button>
                     </ul>
 
                 ) : (

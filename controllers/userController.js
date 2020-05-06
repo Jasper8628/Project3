@@ -6,13 +6,17 @@ const jwt = require("jsonwebtoken");
 // Defining methods for the booksController
 module.exports = {
     findAll: function (req, res) {
-        console.log("findAll userID:", req.params.id);
-        const id=req.params.id;
-        const userID=JSON.parse(id);
         db.User
-        .findById(userID)
+        .find()
         .then(user=>res.json(user))
         .catch(err=> res.status(422).json(err));
+    },
+    delete: function (req, res) {
+        db.User
+            .findOne({ name: req.body.name })
+            .then(dbModel => dbModel.remove())
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
     },
 
     login: function (req, res) {

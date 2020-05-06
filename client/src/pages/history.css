@@ -4,6 +4,15 @@
 }
 .fa-check{
     text-align: center;
-    padding: 0 auto;
-    width: 35px;
+    padding: 5px;
+    width: 36px;
+    height: 24px;
+}
+.tooltip{
+    border-radius: 0.5rem;
+}
+
+.fab{
+    margin:10px;
+    font-size: 36px;
 }

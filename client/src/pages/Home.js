@@ -25,6 +25,7 @@ function Home() {
   });
   const [state, dispatch] = useCountContext();
   const [formObject, setFormObject] = useState({});
+  const [btnState, setBtnState] = useState({});
   const [firebaseToken, setFirebaseToken] = useState();
   const [notestate, setNotice] = useState({
     msg: '',
@@ -59,7 +60,7 @@ function Home() {
           .then(res => {
             const items = []
             items.push(res.data.item1, res.data.item2, res.data.item3, res.data.item4, res.data.item5);
-            const requestedItems = items.filter(item => (item !== undefined));
+            const requestedItems = items.filter(item => (item !== ""));
             const num = requestedItems.length;
             console.log("num items:", num);
             const lat = JSON.parse(testLat);
@@ -90,7 +91,7 @@ function Home() {
           msg: text,
           type: type
         });
-      } else if (type === "confirm"||type==="cancel") {
+      } else if (type === "confirm" || type === "cancel") {
         setNotice({
           msg: text,
           type: type
@@ -170,18 +171,18 @@ function Home() {
       .then(res => {
         const acceptedList = res.data.acceptedList;
         const accepted = acceptedList.filter(item => (item.status === "active"));
-        for(var item of accepted){
-          dispatch({type:"add",request:item});
+        for (var item of accepted) {
+          dispatch({ type: "add", request: item });
         }
-        console.log(accepted);
         setUsers({
-          list:accepted
+          list: accepted
         })
         const name = res.data.name;
         const line1 = res.data.addressLine1;
         const line2 = res.data.addressLine2;
         const lat = parseFloat(res.data.lat);
         const lng = parseFloat(res.data.lng);
+        console.log("logging accepted: ", accepted);
         dispatch({
           type: "in",
           lat: lat,
@@ -235,15 +236,15 @@ function Home() {
     // const address = line1 + " " + line2;
     API.lookupOrder(data)
       .then(res => {
-        console.log("looking lookup:",res);
+        console.log("looking lookup:", res);
         const items = []
         items.push(res.data.item1, res.data.item2, res.data.item3, res.data.item4, res.data.item5);
-        const requestedItems = items.filter(item => (item !== undefined));
+        const requestedItems = items.filter(item => (item !== ""));
         setOrderState({
           displayHome: "none",
           displayOrder: "block",
           name: res.data.name,
-          address: res.data.addressLine1+" "+res.data.addressLine2,
+          address: res.data.addressLine1 + " " + res.data.addressLine2,
           items: requestedItems,
           id: ID
         })
@@ -262,24 +263,24 @@ function Home() {
     const name = state.userName;
     const id = event.target.value;
     const status = `${event.target.name} by ${name} `;
-    const newList=state.requests.filter(item=>(item._id!==id));
-    const receipient=state.requests.find(item=>item._id===id);
-    dispatch({type:"cancel",requests:newList});
+    const newList = state.requests.filter(item => (item._id !== id));
+    const receipient = state.requests.find(item => item._id === id);
+    dispatch({ type: "cancel", requests: newList });
     homeListBtn();
     const data = {
       id: id,
       status: status
     }
-    const cancelInfo={
-      name:state.userName,
-      to:receipient.name,
-      status:event.target.name
+    const cancelInfo = {
+      name: state.userName,
+      to: receipient.name,
+      status: event.target.name
     }
     API
-    .cancel(cancelInfo)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-    
+      .cancel(cancelInfo)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+
     API
       .updateOrder(data)
       .then(res => console.log(res))
@@ -289,7 +290,7 @@ function Home() {
 
 
   return (
-    <Container fluid>
+    <React.Fragment >
       <button className="settings fas fa-bars" onClick={handleSideBar} onBlur={handleBlur} ></button>
       <div className="sideBar" onMouseOver={handleFocus} onMouseLeave={handleUnFocus} style={{ "display": `${state.sidebar}` }}>
         <Sidebar />
@@ -359,8 +360,22 @@ function Home() {
                   <p>{orderState.address}</p>
                   {orderState.items.length ? (
                     <ul>
-                      {orderState.items.map(item => (
-                        <li key={item}>{item} </li>
+                      {orderState.items.map((item, index) => (
+                        <li key={index}>
+                          <button
+                            name={index}
+                            onClick={(event) => {
+                              const name = event.target.name;
+                              if (btnState[name] !== "pressed") {
+                                setBtnState({
+                                  ...btnState,
+                                  [name]: "pressed"
+                                })
+                              }
+                            }}
+                            className={btnState[index] === "pressed" ? ("shoppingListBtn") : ("")}
+                          > {item} </button>
+                        </li>
                       ))}
                     </ul>
                   ) : (<p> </p>)}
@@ -372,7 +387,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </Container>
+    </React.Fragment>
   );
 }
 
