@@ -12,9 +12,14 @@ module.exports = {
         .catch(err=> res.status(422).json(err));
     },
     delete: function (req, res) {
+        console.log("wierd:", req.body.name);
         db.User
             .findOne({ name: req.body.name })
-            .then(dbModel => dbModel.remove())
+            .then(dbModel =>{
+                console.log(dbModel);
+                dbModel.remove()
+
+            } )
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

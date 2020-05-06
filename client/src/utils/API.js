@@ -30,7 +30,7 @@ export default {
    return axios.get("/api/user");
  },
  deleteUser:function(data){
-   return axios.delete("/api/user",data);
+   return axios.put("/api/user",data);
  },
 
 

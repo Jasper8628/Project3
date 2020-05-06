@@ -12,6 +12,7 @@ function Admin() {
         getUsers();
     },[]);
     const [users,setUsers]=useState([]);
+
     function getUsers(){
         API.getUsers()
         .then(res=>{
@@ -25,17 +26,18 @@ function Admin() {
         const data={
             name:event.target.name
         }
+        console.log(data);
         API.deleteUser(data)
         .then(res=>{
-            console.log("logging after delete:",res)
+            console.log("logging after delete:",res);
+            getUsers();
         })
         .catch(err=>console.log(err));
-        console.log("delete")
     }
     return (
         <div>
             {users.length?(
-                <div>yes
+                <div>
                 {users.map(user=>(
                     <div key={user._id}>
                     <p>{user.name}</p>
@@ -49,7 +51,7 @@ function Admin() {
 
                 </div>
             ):(
-                <div>no</div>
+                <div>No users in the database</div>
             )}
 
         </div>
