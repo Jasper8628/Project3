@@ -70,6 +70,8 @@ function Landing() {
         dispatch({type:"signUp"})
     
     }
+    switch(state.status){
+        case "out":
             return (
             <div >
                 <br/>
@@ -142,5 +144,11 @@ function Landing() {
                 <br/>
             </div>
         )
+       
+    default :
+        return <Redirect to="/home"/>
     }
+  
+}
+
 export default Landing
