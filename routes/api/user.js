@@ -29,6 +29,10 @@ router
 
 router
 .get("/lookup/:id",userController.findAll);
+router
+.get("/checkname/:id",userController.checkName);
+router
+.get("/checkemail/:id",userController.checkEmail);
 
 // Matches with "/api/books/:id"
 

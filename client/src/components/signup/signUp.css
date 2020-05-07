@@ -72,6 +72,7 @@ body{
     background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
 }
 .container{
+    justify-content: center;
     display: flex;
     position: relative;
     padding: 10%;
@@ -488,7 +489,7 @@ li button{
     padding:25px;
     border-radius: 0.8rem;
     margin:0 auto;
-    width: 100%;
+    width: 300px;
     box-shadow: -5px -5px 15px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
           inset  -3px -3px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 
                  3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1),

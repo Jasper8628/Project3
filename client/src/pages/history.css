@@ -16,3 +16,13 @@
     margin:10px;
     font-size: 36px;
 }
+.signInLabel{
+    color:var(--neongreen);
+}
+.btnDisable{
+    color: hsla(var(--hue), var(--saturation), var(--twoShadeDarker), 1);
+}
+.errMsg{
+    font-size: 13px;
+    color: hsla(var(--hue), var(--saturation), var(--fourShadeDarker), 1);
+}

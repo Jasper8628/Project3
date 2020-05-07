@@ -11,6 +11,27 @@ module.exports = {
         .then(user=>res.json(user))
         .catch(err=> res.status(422).json(err));
     },
+    checkEmail:function(req,res){
+        console.log(req.params);
+        db.User
+        .findOne({email:req.params.id})
+        .then(user=>{
+            if(!user) return res.json({type:"email", msg:"Valid user email",code:200})
+            return res.json({type:"email",msg:"Invalid, user email already registered",code:400})
+        })
+    },
+    checkName:function(req,res){
+        console.log(req.params);
+        db.User
+        .findOne({name:req.params.id})
+        .then(user=>{
+            if(!user) return res.json({type:"name", msg:"Valid user name",code:200})
+            return res.json({type:"name",msg:"Invalid, user name already in use",code:400})
+        })
+    },
+
+
+
     delete: function (req, res) {
         console.log("wierd:", req.body.name);
         db.User

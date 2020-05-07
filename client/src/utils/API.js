@@ -5,6 +5,16 @@ export default {
  lookupUser:function (data){
    return axios.get("/api/user/lookup/" + data.id);
  },
+ checkAvail:function (data){
+   console.log(data);
+   if(data.name) {
+     console.log("checking name")
+     return axios.get("/api/user/checkname/"+data.name);}
+   if(data.email) {
+     console.log("checing email");
+     return axios.get("/api/user/checkemail/"+data.email);}
+   
+ },
 
 
 

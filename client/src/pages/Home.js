@@ -41,6 +41,7 @@ function Home() {
 
 
   useEffect(() => {
+    dispatch({ type: "sidebarOff" });
     handleBinding();
     loadUser();
     navigator.serviceWorker.addEventListener("message", (message) => {
