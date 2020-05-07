@@ -19,6 +19,8 @@ import Admin from "./pages/admin";
 
 
 function App() {
+  
+  const [state, dispatch] = useCountContext();
 
 
 
@@ -31,7 +33,7 @@ function App() {
             {/* <Theme/> */}
             <Switch>
               <Route exact path='/account'><Account /> </Route>
-              <Route exact path='/'><Landing /> </Route>
+              <Route exact path='/'>{state.status==="in"? <Home/>: <Landing />}    </Route>
               <Route exact path="/history"> <History /></Route> 
               <Route exact path="/about"> <About /></Route> 
               <Route exact path="/home"> <Home /></Route> 

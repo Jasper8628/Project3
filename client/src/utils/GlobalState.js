@@ -24,8 +24,7 @@ const reducer = (state, action) => {
         lat: action.lat,
         lng: action.lng,
         line1: action.line1,
-        line2: action.line2,
-        sidebar: "none"
+        line2: action.line2
       }
     case "drag":
       return {

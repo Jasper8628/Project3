@@ -70,8 +70,6 @@ function Landing() {
         dispatch({type:"signUp"})
     
     }
-    switch(localStorage.getItem("userID")){
-        case "":
             return (
             <div >
                 <br/>
@@ -144,83 +142,5 @@ function Landing() {
                 <br/>
             </div>
         )
-        case "loggedout":
-        return (
-        <div >
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <form className="landingContainer" style={{"display":`${state.signIn}`}}>
-                    <label className="signInLabel" >{logState.message}</label>
-                <label>User Email:</label>
-                <input
-                    onChange={handleInputChange}
-                    name="email"
-                    placeholder="email (required)"
-                />
-                <label>Password:</label>
-                <input
-                    onChange={handleInputChange}
-                    name="password"
-                    type="password"
-                    placeholder="password (required)"
-                />
-
-                <button
-
-                    onClick={handleFormSubmit}>
-                    Sign In
-                                    </button>
-
-
-                <br />
-                <label>Don't have an account yet?</label>
-                <button onClick={handleSignUp} >Sign Up</button>
-
-                <br />
-            </form>
-            <div className="landingContainer" 
-            style={{"display":`${state.signUp}`}}>
-                <Register/>
-            </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-        </div>
-    )
-    
-    default :
-        return <Redirect to="/home"/>
     }
-  
-}
-
 export default Landing

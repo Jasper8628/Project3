@@ -47,9 +47,10 @@ function SideBar() {
                             </Link>
 
                         </li>
-                        <li>
-
-                            <button>About iRequest</button>
+                        <li> 
+                            <Link to="/about" style={{ "textDecoration": "none" }}>
+                                <button>About iRequest</button>
+                            </Link>
                         </li>
                     </ul>
                 </div>
