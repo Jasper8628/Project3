@@ -4,7 +4,7 @@ import NoMatch from "./pages/NoMatch";
 import Detail from "./pages/Detail";
 import Nav from "./components/Nav";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { CountProvider } from "./utils/GlobalState";
+import { CountProvider,useCountContext } from "./utils/GlobalState";
 import Account from "./pages/account";
 import Footer from "./components/footer";
 import Theme from "./components/theme";
