@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import API from "../utils/API";
 import { Input } from "../components/Form";
 import { useCountContext } from "../utils/GlobalState";
+import "./request.css";
+import ShoppingList from "./shoppingList"; 
 
 
 
@@ -86,68 +88,65 @@ function Requestie() {
     }
     return (
         <div style={{"display":`${state.displayRequest}`}}>
+            {/* <ShoppingList/> */}
             <form >
                 <div className="row">
-                    <div className="col-md-6 col-sm-6">
-                        <label>Items</label>
-                        <input
+                    <div className="col-md-6 col-sm-6 col-xs-6 requestContainer">
+                        <span className="requestInput">Items</span>
+                        <input className="requestInput"
                             onChange={handleInputChange}
                             name="item1"
                             placeholder="item 1"
                         />
-                        <input
+                        <input className="requestInput"
                             onChange={handleInputChange}
                             name="item2"
                             placeholder="item 2"
-                        />
-                        <input
+                        /> 
+                        <input className="requestInput"
                             onChange={handleInputChange}
                             name="item3"
                             placeholder="item 3"
                         />
-                        <input
+                        <input className="requestInput"
                             onChange={handleInputChange}
                             name="item4"
                             placeholder="item 4"
                         />
-                        <input
+                        <input className="requestInput"
                             onChange={handleInputChange}
                             name="item5"
                             placeholder="item 5"
                         />
-
                     </div>
-
-                    <div className="col-md-6 col-sm-6">
-                        <label>Quantity</label>
-                        <input
+                    <div className="col-md-6 col-sm-6 col-xs-6 requestContainer">
+                        <span className="requestInput">Quantity</span>
+                        <input className="requestInput"
                             onChange={handleAcountChange}
                             name="amount1"
-                            placeholder="amount for item 1"
+                            placeholder="amount"
                         />
-                        <input
+                        <input className="requestInput"
                             onChange={handleAcountChange}
                             name="amount2"
-                            placeholder="amount for item 2"
+                            placeholder="amount"
                         />
-                        <input
+                        <input className="requestInput"
                             onChange={handleAcountChange}
                             name="amount3"
-                            placeholder="amount for item 3"
+                            placeholder="amount"
                         />
-                        <input
+                        <input className="requestInput"
                             onChange={handleAcountChange}
                             name="amount4"
-                            placeholder="amount for item 4"
+                            placeholder="amount"
                         />
-                        <input
+                        <input className="requestInput"
                             onChange={handleAcountChange}
                             name="amount5"
-                            placeholder="amount for item 5"
+                            placeholder="amount"
                         />
-
                     </div>
-
                 </div>
             </form>
             <div className="modal-footer">

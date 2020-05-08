@@ -15,7 +15,9 @@ module.exports = {
                 users.filter(user => {
                     const a = (user.lat - lat) * 111263.0566;
                     const b = (user.lng - lng) * 111263.0566;
-                    if (0 < (a * a + b * b) <= radius * radius &&user.name!==name) {
+                    if (0 < (a * a + b * b) <= radius * radius 
+                    // &&user.name!==name
+                    ) {
                         tokens.push(user.fireToken);
                     }
                 });

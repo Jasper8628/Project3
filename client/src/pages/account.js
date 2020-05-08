@@ -10,9 +10,15 @@ import { useCountContext } from "../utils/GlobalState";
 import Geocode from "react-geocode";
 import GoogleMaps from "../components/googleMaps";
 import Goshopping from "../components/goShopping";
+import {calScore} from "../utils/pwStrength";
 function Account() {
     const [state, dispatch] = useCountContext();
     const [books, setBooks] = useState([]);
+    const [result, setResult] = useState({
+        score: 0,
+        msg: "",
+        strength:""
+    })
     const [userState, setUserState] = useState({
         name: "",
         email: "",
@@ -26,7 +32,49 @@ function Account() {
     useEffect(() => {
         loadUser();
     }, []);
-  
+    const [changePW, setChangePW] = useState({
+        display: "none"
+    })
+    function handleOnChange(event) {
+        const { name, value } = event.target;
+        const {score,msg}= calScore(name, value);
+        if(score===0){
+            setResult({
+                msg: msg,
+                score: score,
+                strength:""
+            })
+        }else if(score<=40){
+               setResult({
+            msg: msg,
+            score: score,
+            strength:"(Weak)"
+        })
+        } else if(score<=80){
+            setResult({
+                msg: msg,
+                score: score,
+                strength:"(Medium)"
+            })
+        } else{
+            setResult({
+                msg: msg,
+                score: score,
+                strength:"(Strong)"
+            })
+        }
+        setFormObject({
+            ...formObject,
+            [name]: value
+        })
+    }
+    function pwBtn(event) {
+        event.preventDefault();
+        const name = event.target.name;
+        setChangePW({ display: name })
+
+    }
+
 
     function loadUser() {
         let lat = '';
@@ -50,7 +98,7 @@ function Account() {
             }
             API.getUser(user)
                 .then(res => {
-                    console.log("logging POPULATED :",res);
+                    console.log("logging POPULATED :", res);
                     const lat = res.data.lat;
                     const lng = res.data.lng;
                     const line1 = res.data.line1;
@@ -126,12 +174,42 @@ function Account() {
                         name="email"
                         value={formObject.email}
                     />
-                    <label>Password:</label>
-                    <input className="accountInput"
-                        onChange={handleInputChange}
-                        name="password"
-                        type="password"
-                    />
+                    <label>Change Password:</label>
+                    <button
+                        name="block"
+                        onClick={pwBtn}
+                    >Change Password</button>
+                    <div className="pwChangeContainer" style={{ "display": `${changePW.display}` }}>
+                        <label>Please enter your old password:</label>
+                        <input className="accountInput"
+                            onChange={handleInputChange}
+                            name="oldPW"
+                            type="password"
+                        />
+                        <label>Please enter a new password:</label>
+                        <div className="row align-items-center">
+                            <div title="password strength" className="passwordStrength">
+                                <div className="strengthMeter" style={{ "width": `${result.score}%` }}></div>
+                            </div>
+                            <span title={result.msg ? result.msg : "password strength"} className="far fa-question-circle"></span>
+                        </div>
+                        <input className="accountInput"
+                            onChange={handleOnChange}
+                            name="password"
+                            type="password"
+                        />
+                        <label>Verify the new password:</label>
+                        <input className="accountInput"
+                            onChange={handleInputChange}
+                            name="reNewPW"
+                            type="password"
+                        />
+                        <button>Save</button>
+                        <button
+                            name="none"
+                            onClick={pwBtn}
+                        >Cancel</button>
+                    </div>
                     <label>Mobile Phone:</label>
                     <input className="accountInput"
                         onChange={handleInputChange}
@@ -242,9 +320,9 @@ function Account() {
                 </div> */}
                 <div style={(state.status === "out" ? { "display": "block" } : { "display": "none" })}>
                     Whoa whoa! nothing to see here, sign in or sign up
-                    <Link to="/" style={{"textDecoration":"none"}}><button >Sign in/Sign up</button></Link>
-                    
-            </div>
+                    <Link to="/" style={{ "textDecoration": "none" }}><button >Sign in/Sign up</button></Link>
+
+                </div>
             </div>
 
 

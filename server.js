@@ -29,94 +29,94 @@ admin.initializeApp({
 
 
 /////////////////////   testing FCM ////////////////////////
-app.post("/api/fire/reply", (req, res) => {
-  const {addressLine1,addressLine2,lat,lng}=req.body;
-  console.log(lat,lng);
-  console.log(addressLine1,addressLine2);
-  const requestID=req.body.request;
-  const sender = req.body.sender;
-  const userName=req.body.user;
-  console.log(userName);
-  const id = JSON.stringify(req.body.id);
-  console.log("json request list: ", sender, id);
-  db.User
-    .findOne({ name: sender })
-    .then(user => {
-      const token = user.fireToken;
-      const message = {
-        data: {
-          msg: "Your neighbor has replied with the shopping list",
-          request: requestID,
-          name: id,
-          user:userName,
-          line1:addressLine1,
-          line2:addressLine2,
-          lat:JSON.stringify(lat),
-          lng:JSON.stringify(lng)
-        },
-        token: token
-      }
-      admin.messaging().send(message)
-        .then((res) => {
-          console.log("fire reply: ", res)
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
-});
+// app.post("/api/fire/reply", (req, res) => {
+//   const {addressLine1,addressLine2,lat,lng}=req.body;
+//   console.log(lat,lng);
+//   console.log(addressLine1,addressLine2);
+//   const requestID=req.body.request;
+//   const sender = req.body.sender;
+//   const userName=req.body.user;
+//   console.log(userName);
+//   const id = JSON.stringify(req.body.id);
+//   console.log("json request list: ", sender, id);
+//   db.User
+//     .findOne({ name: sender })
+//     .then(user => {
+//       const token = user.fireToken;
+//       const message = {
+//         data: {
+//           msg: "Your neighbor has replied with the shopping list",
+//           request: requestID,
+//           name: id,
+//           user:userName,
+//           line1:addressLine1,
+//           line2:addressLine2,
+//           lat:JSON.stringify(lat),
+//           lng:JSON.stringify(lng)
+//         },
+//         token: token
+//       }
+//       admin.messaging().send(message)
+//         .then((res) => {
+//           console.log("fire reply: ", res)
+//         })
+//         .catch(err => console.log(err));
+//     })
+//     .catch(err => console.log(err));
+// });
 
-app.post("/api/fire", (req, res) => {
-  const token = req.body.token;
-  const name = req.body.name;
-  const id = req.body.id;
-  const message = {
-    data: {
-      msg: `${name} from your neighborhood is going to the shops,\n \n any requests?`,
-      name: name,
-      request: "none"
-    },
-    token: token
-  }
-  console.log("fire:", name);
-  admin.messaging().send(message)
-    .then((res) => {
-      console.log("admin msg:", res)
-    })
-    .catch(err => console.log(err));
+// app.post("/api/fire", (req, res) => {
+//   const token = req.body.token;
+//   const name = req.body.name;
+//   const id = req.body.id;
+//   const message = {
+//     data: {
+//       msg: `${name} from your neighborhood is going to the shops,\n \n any requests?`,
+//       name: name,
+//       request: "none"
+//     },
+//     token: token
+//   }
+//   console.log("fire:", name);
+//   admin.messaging().send(message)
+//     .then((res) => {
+//       console.log("admin msg:", res)
+//     })
+//     .catch(err => console.log(err));
 
-})
+// })
 
-app.post("/api/fire/pause", (req, res) => {
-  const email = req.body.email;
-  const postCode = req.body.postCode;
-  const radius = req.body.radius;
-  const { lat, lng } = req.body;
-  const tokens = [];
-  db.User
-    .find({ email: email })
-    .then(users => {
-      tokens = users.map(user => {
-        if ((user.lat - lat) <= radius && (user.lng - lng) <= radius) {
-          return user.fireToken
-        }
-      })
-      res.json();
-      const message = {
-        data: {
-          msg: "hello big thanks to firebase",
-          email: email
-        },
-        token: tokens
-      }
-      admin.messaging().send(message)
-        .then((res) => {
-          console.log(res)
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => res.status(422).json(err));
-  //const token=req.body.token;
-})
+// app.post("/api/fire/pause", (req, res) => {
+//   const email = req.body.email;
+//   const postCode = req.body.postCode;
+//   const radius = req.body.radius;
+//   const { lat, lng } = req.body;
+//   const tokens = [];
+//   db.User
+//     .find({ email: email })
+//     .then(users => {
+//       tokens = users.map(user => {
+//         if ((user.lat - lat) <= radius && (user.lng - lng) <= radius) {
+//           return user.fireToken
+//         }
+//       })
+//       res.json();
+//       const message = {
+//         data: {
+//           msg: "hello big thanks to firebase",
+//           email: email
+//         },
+//         token: tokens
+//       }
+//       admin.messaging().send(message)
+//         .then((res) => {
+//           console.log(res)
+//         })
+//         .catch(err => console.log(err));
+//     })
+//     .catch(err => res.status(422).json(err));
+//   //const token=req.body.token;
+// })
 
 ///////////////////////////////////////
 

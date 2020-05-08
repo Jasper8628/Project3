@@ -4,11 +4,19 @@ import { useCountContext } from "../utils/GlobalState";
 import API from "../utils/API";
 import { debounce } from "lodash";
 import { Input } from "./Form";
-import PasswordStrength from "./passwordStrength/passwordStrength";
+import "./register.css";
+import {calScore} from "../utils/pwStrength";
+// import PasswordStrength from "./passwordStrength/passwordStrength";
 
 function Register() {
 
     const [formObject, setFormObject] = useState({});
+ 
+    const [result, setResult] = useState({
+        score: 0,
+        msg: "",
+        strength:""
+    })
     const [state, dispatch] = useCountContext();
     const [msgState, setMsgState] = useState("none");
     const [time, setTime] = useState(3);
@@ -22,13 +30,37 @@ function Register() {
     var timeRemaining = 3;
     function handleOnChange(event) {
         const { name, value } = event.target;
+        const {score,msg}= calScore(name, value);
+        if(score===0){
+            setResult({
+                msg: msg,
+                score: score,
+                strength:""
+            })
+        }else if(score<=40){
+               setResult({
+            msg: msg,
+            score: score,
+            strength:"(Weak)"
+        })
+        } else if(score<=80){
+            setResult({
+                msg: msg,
+                score: score,
+                strength:"(Medium)"
+            })
+        } else{
+            setResult({
+                msg: msg,
+                score: score,
+                strength:"(Strong)"
+            })
+        }
         setFormObject({
             ...formObject,
             [name]: value
         })
-
     }
-
     const handleInputChange =
         (event) => {
             event.persist();
@@ -112,8 +144,13 @@ function Register() {
                     name="email"
                     placeholder="email (required)"
                 />
-                <label>Password:</label>
-                <PasswordStrength password={formObject.password} />
+                <label>Password: <span className="pwStrength">{result.strength}</span>  </label>
+                <div className="row align-items-center">
+                    <div title="password strength" className="passwordStrength">
+                        <div className="strengthMeter" style={{ "width": `${result.score}%` }}></div>
+                    </div>
+                    <span title={result.msg?result.msg:"password strength"} className="far fa-question-circle"></span>
+                </div>
                 <input
                     onChange={handleOnChange}
                     name="password"

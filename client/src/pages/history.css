@@ -26,3 +26,20 @@
     font-size: 13px;
     color: hsla(var(--hue), var(--saturation), var(--fourShadeDarker), 1);
 }
+.pwChangeContainer{
+    background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
+    border-radius: 0.8rem;
+    box-shadow:  -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+    3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+
+
+    width: 80%;
+    height: 400px;
+    position:absolute;
+    top:20%;
+    left:10%;
+    margin: 0 auto;
+    z-index: 100;
+    padding: 10%;
+    padding-top: 20px;
+}

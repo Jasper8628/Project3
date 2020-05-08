@@ -87,6 +87,8 @@ body{
 
 }
 .modal-dialog{
+    margin: 0 auto;
+    width: 60%;
     border:none;
     border-radius: 1rem;
     background-color: transparent;
@@ -192,7 +194,7 @@ input{
     margin: 10px;
     border-radius: 0.5rem;
     border:none;
-    display: inline;
+    /* display: inline; */
     background: hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1);
     /* background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1)!important; */
 }
@@ -203,7 +205,7 @@ input:focus{
     margin: 10px;
     border-radius: 0.5rem;
     border:none;
-    display: inline;
+    /* display: inline; */
     background: hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1);
     /* background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1)!important; */
 }
@@ -260,7 +262,7 @@ form{
     line-height: 70px;
     padding-bottom: 0;
 }
-.navbar-brand{
+/* .navbar-brand{
     font-family: fantasy;
     text-transform: none;
     margin-left: -15px;
@@ -293,7 +295,7 @@ form{
     
     font-family: fantasy;
     font-weight: 1200;
-}
+} */
 .myNoResult{
     color: hsla(var(--hue), var(--saturation), var(--twoShadeDarker), 1);
 }

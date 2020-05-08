@@ -1,0 +1,28 @@
+.passwordStrength{
+    margin-left: 25px;
+    border-radius: 1rem;
+    width: 170px;
+    height: 10px;
+    background: hsla(var(--hue), var(--saturation), var(--twoShadeLighter), 1);
+    box-shadow: inset -1px -1px 2px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+                inset 1px 1px 2px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+}
+.strengthMeter{
+    border-radius: 1rem;
+    width: 80%;
+    height: 100%;
+    background: orange;
+    transition: 300ms;
+}
+.fa-question-circle{
+    margin-left: 15px;
+    color:hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1);
+}
+.fa-question-circle:hover{
+    cursor: pointer;
+}
+.pwStrength{
+    font-weight: 550;
+    font-size: 14px;
+    color:hsla(var(--hue),var(--saturation),var(--fourShadeDarker),1);
+}
