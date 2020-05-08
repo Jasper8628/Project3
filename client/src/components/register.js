@@ -5,17 +5,17 @@ import API from "../utils/API";
 import { debounce } from "lodash";
 import { Input } from "./Form";
 import "./register.css";
-import {calScore} from "../utils/pwStrength";
+import { calScore } from "../utils/pwStrength";
 // import PasswordStrength from "./passwordStrength/passwordStrength";
 
 function Register() {
 
     const [formObject, setFormObject] = useState({});
- 
+
     const [result, setResult] = useState({
         score: 0,
         msg: "",
-        strength:""
+        strength: ""
     })
     const [state, dispatch] = useCountContext();
     const [msgState, setMsgState] = useState("none");
@@ -30,31 +30,33 @@ function Register() {
     var timeRemaining = 3;
     function handleOnChange(event) {
         const { name, value } = event.target;
-        const {score,msg}= calScore(name, value);
-        if(score===0){
-            setResult({
-                msg: msg,
-                score: score,
-                strength:""
-            })
-        }else if(score<=40){
-               setResult({
-            msg: msg,
-            score: score,
-            strength:"(Weak)"
-        })
-        } else if(score<=80){
-            setResult({
-                msg: msg,
-                score: score,
-                strength:"(Medium)"
-            })
-        } else{
-            setResult({
-                msg: msg,
-                score: score,
-                strength:"(Strong)"
-            })
+        if (name === "password") {
+            const { score, msg } = calScore(name, value);
+            if (score === 0) {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: ""
+                })
+            } else if (score <= 40) {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: "(Weak)"
+                })
+            } else if (score <= 80) {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: "(Medium)"
+                })
+            } else {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: "(Strong)"
+                })
+            }
         }
         setFormObject({
             ...formObject,
@@ -149,7 +151,7 @@ function Register() {
                     <div title="password strength" className="passwordStrength">
                         <div className="strengthMeter" style={{ "width": `${result.score}%` }}></div>
                     </div>
-                    <span title={result.msg?result.msg:"password strength"} className="far fa-question-circle"></span>
+                    <span title={result.msg ? result.msg : "password strength"} className="far fa-question-circle"></span>
                 </div>
                 <input
                     onChange={handleOnChange}
