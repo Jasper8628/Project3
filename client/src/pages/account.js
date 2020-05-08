@@ -130,6 +130,9 @@ function Account() {
     function handleInputChange(event) {
         const { name, value } = event.target;
         setFormObject({ ...formObject, [name]: value })
+        if(name==="name"){
+            localStorage.setItem("userName",name);
+        }
     };
 
     function handleFormSubmit(event) {
