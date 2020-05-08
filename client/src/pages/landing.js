@@ -74,7 +74,7 @@ function Landing() {
         case "out":
             return (
             <div >
-                <br/>
+                <h1 className="logo">iRequest</h1>
                 <br/>
                 <br/>
                 <br/>

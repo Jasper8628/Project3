@@ -43,3 +43,8 @@
     padding: 10%;
     padding-top: 20px;
 }
+.logo{
+    color:hsla(var(--hue), var(--saturation), var(--fourShadeLighter), 1);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
