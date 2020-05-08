@@ -47,7 +47,7 @@ function Requestie() {
         const token = localStorage.getItem("userToken");
         const data = {
             userID: id,
-            name:name,
+            name:userName,
             item1: formObject.item1?(formObject.item1+formObject.amount1):("") ,
             item2: formObject.item2?(formObject.item2+formObject.amount2):("") ,
             item3: formObject.item3?(formObject.item3+formObject.amount3):("") ,
