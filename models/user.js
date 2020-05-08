@@ -14,6 +14,7 @@ const userSchema = new Schema({
   postcode:{type:Number},
   lat:{type:Number},
   lng:{type:Number},
+  stateTerritory:{type:String},
   shoppingList: [{
     type:Schema.Types.ObjectId,
     ref:"Order"

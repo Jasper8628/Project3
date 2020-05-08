@@ -18,14 +18,10 @@ function Account() {
         msg: "",
         strength: ""
     })
-    const [userState, setUserState] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        history: [],
-        lat: "",
-        lng: "",
-        radius: ""
+    const [passwordState, setPasswordState] = useState({
+        display: "none",
+        msg: ""
+
     });
     const [formObject, setFormObject] = useState({});
     const [newPassword, setNewPassword] = useState({});
@@ -104,11 +100,12 @@ function Account() {
                     console.log("logging POPULATED :", res);
                     const lat = res.data.lat;
                     const lng = res.data.lng;
-                    const line1 = res.data.line1;
-                    const line2 = res.data.line2;
+                    const line1 = res.data.addressLine1;
+                    const line2 = res.data.addressLine2;
+                    const postcode = res.data.postcode;
                     setFormObject(res.data);
                     console.log("logging account: ", lat, lng);
-                    dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2 });
+                    dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2,postcode:postcode });
                 })
                 .catch(err => console.log(err));
         }
@@ -130,8 +127,8 @@ function Account() {
     function handleInputChange(event) {
         const { name, value } = event.target;
         setFormObject({ ...formObject, [name]: value })
-        if(name==="name"){
-            localStorage.setItem("userName",name);
+        if (name === "name") {
+            localStorage.setItem("userName", name);
         }
     };
 
@@ -145,12 +142,13 @@ function Account() {
             email: formObject.email,
             fireToken: fireToken,
             //password: formObject.password,
-            addressLine1: formObject.line1,
-            addressLine2: formObject.line2,
+            addressLine1: formObject.addressLine1,
+            addressLine2: formObject.addressLine2,
             phone: formObject.phone,
             postcode: state.postcode,
             lat: state.lat,
-            lng: state.lng
+            lng: state.lng,
+            stateTerritory: formObject.stateTerritory
         }
         API.updateUser(user)
             .then(res => console.log(res))
@@ -168,7 +166,19 @@ function Account() {
             newPassword: newPassword.password
         }
         API.changePassword(data)
-            .then(res => console.log(res))
+            .then(res => {
+                if (res.data.code === 401) {
+                    setPasswordState({
+                        display: "block",
+                        msg: res.data.msg
+                    })
+                } else {
+                    setPasswordState({
+                        display: "block",
+                        msg: "New Password Saved!"
+                    })
+                }
+            })
             .catch(err => console.log(err));
     }
 
@@ -200,6 +210,7 @@ function Account() {
                         onClick={pwBtn}
                     >Change Password</button>
                     <div className="pwChangeContainer" style={{ "display": `${changePW.display}` }}>
+                        <span style={{ "display": `${passwordState.display}` }} className="redirectMsg"> {passwordState.msg}</span>
                         <label>Please enter your old password:</label>
                         <input className="accountInput"
                             onChange={handleOnChange}
@@ -227,7 +238,7 @@ function Account() {
                         />
                         <button
                             className={
-                                    !(newPassword.password === newPassword.reNewPW) ||
+                                !(newPassword.password === newPassword.reNewPW) ||
                                     !(newPassword.password) ?
                                     "btnDisable" : ""}
                             disabled={
@@ -237,7 +248,7 @@ function Account() {
                         <button
                             name="none"
                             onClick={pwBtn}
-                        >Cancel</button>
+                        >Close</button>
                     </div>
                     <label>Mobile Phone:</label>
                     <input className="accountInput"
@@ -248,15 +259,15 @@ function Account() {
                     <label>Address:</label>
                     <input className="accountInput"
                         onChange={handleInputChange}
-                        name="line1"
+                        name="addressLine1"
                         placeholder="Line 1"
-                        value={formObject.line1}
+                        value={formObject.addressLine1}
                     />
                     <input className="accountInput"
                         onChange={handleInputChange}
-                        name="line2"
+                        name="addressLine2"
                         placeholder="Line 2"
-                        value={formObject.line2}
+                        value={formObject.addressLine2}
                     />
                     <div className="row">
                         <div className="col-md-4">
@@ -287,7 +298,7 @@ function Account() {
                         </div>
 
                     </div>
-                    <label>Drag pin to change your location:</label>
+                    <label>Drag pin to change your postcode:</label>
                     <div className="mapContainer">
                         <GoogleMaps />
                     </div>
@@ -298,55 +309,6 @@ function Account() {
                         Save changes
                     </button>
                 </form>
-                {/* <div className="col-md-4"
-                    style={(state.status === "in" ?
-                        { "display": "block" } : { "display": "none" })}>
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Active Request</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">Picked up by...</h6>
-                            <p className="card-text">You have no current active request</p>
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                    <div className="card">
-                        <div className="card-body"> */}
-                {/* <div className="card-title">
-                                <h3>Recent Activities</h3>
-
-                            </div> */}
-                {/* {books.length ? (
-                                <List>
-                                    {books.map(book => (
-                                        <div className="card" key={book._id}>
-                                            <div className="card-body">
-                                                <h5 className="card-title">{book.title}</h5>
-                                                <h6 className="card-subtitle mb-2 text-muted">by {book.author}</h6>
-                                                <p className="card-text">{book.synopsis}</p>
-                                                <a href="#" className="card-link">Card link</a>
-                                                <a href="#" className="card-link">Another link</a>
-                                            </div>
-
-                                        </div>
-
-
-
-                                        // <ListItem key={book._id}>
-                                        //     <Link to={"/books/" + book._id}>
-                                        //         <strong>
-                                        //             {book.title} by {book.author}
-                                        //         </strong>
-                                        //     </Link>
-                                        // </ListItem>
-                                    ))}
-                                </List>
-                            ) : (
-                                    <h3>No Results to Display</h3>
-                                )} */}
-                {/* </div>
-                    </div>
-                </div> */}
                 <div style={(state.status === "out" ? { "display": "block" } : { "display": "none" })}>
                     Whoa whoa! nothing to see here, sign in or sign up
                     <Link to="/" style={{ "textDecoration": "none" }}><button >Sign in/Sign up</button></Link>

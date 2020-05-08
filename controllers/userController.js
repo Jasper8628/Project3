@@ -86,7 +86,7 @@ module.exports = {
             .then(user => {
                 bcrypt.compare(password, user.password)
                     .then(isMatch => {
-                        if (!isMatch) return res.status(401).json({ msg: "Incorrect password" });
+                        if (!isMatch) return res.json({msg: "Incorrect Password, please try again", code: 401 })
                         bcrypt.genSalt(10, (err, salt) => {
                             bcrypt.hash(newUser.password, salt, (err, hash) => {
                                 if (err) throw err;
