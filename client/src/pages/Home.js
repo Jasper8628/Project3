@@ -360,8 +360,11 @@ function Home() {
                   <ShoppingList />
                 </div>
                 <div className="myContent" style={{ "display": `${orderState.displayOrder}` }}>
+                  <div className="requestHeader">
                   <p>{orderState.name} </p>
                   <p>{orderState.address}</p>
+
+                  </div>
                   {orderState.items.length ? (
                     <ul>
                       {orderState.items.map((item, index) => (
@@ -377,14 +380,17 @@ function Home() {
                                 })
                               }
                             }}
-                            className={btnState[index] === "pressed" ? ("shoppingListBtn") : ("")}
+                            className={btnState[index] === "pressed" ? ("shoppingListBtn unPressed") : ("unPressed")}
                           > {item} </button>
                         </li>
                       ))}
                     </ul>
                   ) : (<p> </p>)}
+                  <div className="requestFooter">
                   <button name="cancelled" value={orderState.id} onClick={updateOrder}>Cancel</button>
                   <button name="completed" value={orderState.id} onClick={updateOrder}>Complete</button>
+
+                  </div>
                 </div>
               </div>
             </div>

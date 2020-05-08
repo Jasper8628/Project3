@@ -73,7 +73,6 @@ body{
 }
 .container{
     justify-content: center;
-    display: flex;
     position: relative;
     padding: 10%;
     padding-top: 5%;
@@ -323,6 +322,14 @@ form{
 }
 .footerLink a{
     color: darkgray;
+}
+.requestHeader{
+    margin-top: 10px;
+    margin-left: 20px;
+    line-height: 10px;
+}
+.requestFooter{
+    margin-left: 10px;
 }
 ul{
     

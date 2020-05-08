@@ -94,7 +94,7 @@ function ShoppingList() {
                                     <button 
                                     name={index}
                                     onClick={handleClick}
-                                    className={btnState[index]==="pressed"?("shoppingListBtn"):("")}   
+                                    className={btnState[index]==="pressed"?("shoppingListBtn unPressed"):("unPressed")}   
                                     > {item.name} x {item.quantity}</button>
 
                                 </div>

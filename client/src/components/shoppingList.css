@@ -26,6 +26,8 @@
     height: 18px;
 }
 .shoppingListBtn{
+    width: 50%;
+    margin-left: 20px;
     text-decoration: line-through;
     box-shadow: -1.2px -1.2px 3px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
                 inset -1.5px -1.5px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
@@ -34,3 +36,12 @@
                 inset 1.5px 1.5px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1);
     
 }
+.unPressed{
+    margin-left: 20px;
+    width: 50%;
+}
+.unPressed:active{
+    margin-left: 20px;
+    width: 50%;
+}
+
