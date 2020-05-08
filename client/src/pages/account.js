@@ -10,14 +10,13 @@ import { useCountContext } from "../utils/GlobalState";
 import Geocode from "react-geocode";
 import GoogleMaps from "../components/googleMaps";
 import Goshopping from "../components/goShopping";
-import {calScore} from "../utils/pwStrength";
+import { calScore } from "../utils/pwStrength";
 function Account() {
     const [state, dispatch] = useCountContext();
-    const [books, setBooks] = useState([]);
     const [result, setResult] = useState({
         score: 0,
         msg: "",
-        strength:""
+        strength: ""
     })
     const [userState, setUserState] = useState({
         name: "",
@@ -29,6 +28,7 @@ function Account() {
         radius: ""
     });
     const [formObject, setFormObject] = useState({});
+    const [newPassword, setNewPassword] = useState({});
     useEffect(() => {
         loadUser();
     }, []);
@@ -37,34 +37,37 @@ function Account() {
     })
     function handleOnChange(event) {
         const { name, value } = event.target;
-        const {score,msg}= calScore(name, value);
-        if(score===0){
-            setResult({
-                msg: msg,
-                score: score,
-                strength:""
-            })
-        }else if(score<=40){
-               setResult({
-            msg: msg,
-            score: score,
-            strength:"(Weak)"
-        })
-        } else if(score<=80){
-            setResult({
-                msg: msg,
-                score: score,
-                strength:"(Medium)"
-            })
-        } else{
-            setResult({
-                msg: msg,
-                score: score,
-                strength:"(Strong)"
-            })
+        if (name === "password") {
+            const { score, msg } = calScore(name, value);
+            if (score === 0) {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: ""
+                })
+            } else if (score <= 40) {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: "(Weak)"
+                })
+            } else if (score <= 80) {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: "(Medium)"
+                })
+            } else {
+                setResult({
+                    msg: msg,
+                    score: score,
+                    strength: "(Strong)"
+                })
+            }
         }
-        setFormObject({
-            ...formObject,
+
+        setNewPassword({
+            ...newPassword,
             [name]: value
         })
     }
@@ -151,6 +154,20 @@ function Account() {
             .catch(err => console.log(err));
 
     };
+    function changePassword(event) {
+        event.preventDefault();
+        const token = localStorage.getItem("reactToken");
+        const id = localStorage.getItem("userID");
+        const data = {
+            token: token,
+            id: id,
+            password: newPassword.oldPW,
+            newPassword: newPassword.password
+        }
+        API.changePassword(data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    }
 
     return (
         <div>
@@ -182,7 +199,7 @@ function Account() {
                     <div className="pwChangeContainer" style={{ "display": `${changePW.display}` }}>
                         <label>Please enter your old password:</label>
                         <input className="accountInput"
-                            onChange={handleInputChange}
+                            onChange={handleOnChange}
                             name="oldPW"
                             type="password"
                         />
@@ -198,13 +215,22 @@ function Account() {
                             name="password"
                             type="password"
                         />
-                        <label>Verify the new password:</label>
+                        <label>{(newPassword.password === newPassword.reNewPW) || !(newPassword.reNewPW) ?
+                            "Verify password:" : "Verify password: (passwords don't match)"}</label>
                         <input className="accountInput"
-                            onChange={handleInputChange}
+                            onChange={handleOnChange}
                             name="reNewPW"
                             type="password"
                         />
-                        <button>Save</button>
+                        <button
+                            className={
+                                    !(newPassword.password === newPassword.reNewPW) ||
+                                    !(newPassword.password) ?
+                                    "btnDisable" : ""}
+                            disabled={
+                                !(newPassword.password === newPassword.reNewPW) ||
+                                !(newPassword.password)}
+                            onClick={changePassword} >Save</button>
                         <button
                             name="none"
                             onClick={pwBtn}

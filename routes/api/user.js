@@ -42,7 +42,7 @@ router
 //.get(userController.findById)
 .get("/:id",auth,userController.get)
 .put("/:id",auth, userController.update)
-.post("/:id",auth, userController.create)
+.post("/:id",auth, userController.passwordChange)
 .delete("/:id",auth, userController.remove);
 
 

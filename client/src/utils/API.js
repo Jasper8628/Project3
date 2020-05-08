@@ -15,6 +15,14 @@ export default {
      return axios.get("/api/user/checkemail/"+data.email);}
    
  },
+ changePassword:function(data){
+  const token = data.token;
+   return axios.post("/api/user/"+data.id,data,{
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+ },
 
 
 
