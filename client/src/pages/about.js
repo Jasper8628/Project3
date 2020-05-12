@@ -21,10 +21,10 @@ This is an app designed to encourage personal interations in real life and to st
 Every time when one of my family members goes out shopping, one question will always be asked :"Any requests?" Hence the name. I thought to myself :"Under the current circumstances, wouldn't it be nice to extend that sense of family unit to my neighbourbood? And maybe beyond?"
 <br/>
 <br/>
-Fewer and fewer of us these days know our neighbours by their names, however, ever since the outbreak of this pandemic, more and more gestures of kindness,reliance on the community have been sprouting out everywhere.
+Fewer and fewer of us these days know our neighbours by their names, however, ever since the outbreak of this pandemic, more and more gestures of kindness and reliance on the community have been sprouting out like a the life after a wild fire.
 <br/>
 <br/>
-I hope this app can be part of this new trend where instead of becoming colder and lazier with new techknologies, we use technology to create more ways to get out of our houses, talk to our neighbours and find fulfillment in each other's presence.
+I hope this app can be part of our slightly elevated coexistence with innovations, where instead of becoming colder and lazier with new technologies, we use them to create more ways to get out of our houses, talk to our neighbours and find fulfillment in each other's presence.
             </p>
             <div className="row">
                 <a className="fab fa-facebook-f" ></a>

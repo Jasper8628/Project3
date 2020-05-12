@@ -268,7 +268,7 @@ function Home() {
     const receipient = state.requests.find(item => item._id === id);
     dispatch({ type: "cancel", requests: newList });
     setUsers({
-      list:newList
+      list: newList
     })
     homeListBtn();
     const data = {
@@ -295,21 +295,16 @@ function Home() {
 
   return (
     <React.Fragment >
-      <button className="settings fas fa-bars" onClick={handleSideBar} onBlur={handleBlur} ></button>
+      <button className="settings fas fa-user-circle" onClick={handleSideBar} onBlur={handleBlur} ></button>
       <div className="sideBar" onMouseOver={handleFocus} onMouseLeave={handleUnFocus} style={{ "display": `${state.sidebar}` }}>
         <Sidebar />
       </div>
       <div className="row justify-content-center">
-        <div className="col-md-12 col-sm-12 justify-content-start" >
-
-        </div>
-
         <div className="col-md-12 col-sm-12">
-          <br />
           <div className="mapContainer">
             <GoogleMaps userList={users.list} />
           </div>
-          <h3 className="sliderLable">Going to the shops...?</h3>
+          <br/>
           <input
             className="col-sm-12"
             id="slider"
@@ -322,6 +317,8 @@ function Home() {
             style={{ "background": `${sliderState.color}` }}
             onChange={customSlider}
           />
+          <span className="quest fas fa-exclamation"></span>
+          <h6 className="sliderLable">Going to the shops? Slide me...</h6>
 
           {/* <button className="btn btn-primary" onClick={handleBinding}>firebase button</button>
           <button className="btn btn-primary" onClick={handleFire}>admin</button> */}
@@ -330,15 +327,12 @@ function Home() {
             text={notestate.msg} />
           {/* <button onClick={loadUser}>user</button>
           <button onClick={checkReply} >check reply</button> */}
-          <br />
-          <br />
-
-          <div className="row justify-content-center">
-            <div className="col-md-12 col-sm-12">
+          <div className="row ">
+            <div className="col-md-12 col-sm-12 justify-content-start">
               <div>
                 {state.requests.length ?
                   (
-                    <div className="row">
+                    <div className="myContentRow row">
                       <button className="myContentBtn fas fa-store" onClick={homeListBtn}></button>
                       {state.requests.map(request => (
 
@@ -352,7 +346,7 @@ function Home() {
                     </div>
                   )
                   : (
-                    <div className="row">
+                    <div className="myContentRow row">
                       <button className="myContentBtn fas fa-store" onClick={homeListBtn}></button>
                     </div>
                   )}
@@ -361,8 +355,8 @@ function Home() {
                 </div>
                 <div className="myContent" style={{ "display": `${orderState.displayOrder}` }}>
                   <div className="requestHeader">
-                  <p>{orderState.name} </p>
-                  <p>{orderState.address}</p>
+                    <p>{orderState.name} </p>
+                    <p>{orderState.address}</p>
 
                   </div>
                   {orderState.items.length ? (
@@ -387,8 +381,8 @@ function Home() {
                     </ul>
                   ) : (<p> </p>)}
                   <div className="requestFooter">
-                  <button name="cancelled" value={orderState.id} onClick={updateOrder}>Cancel</button>
-                  <button name="completed" value={orderState.id} onClick={updateOrder}>Complete</button>
+                    <button name="cancelled" value={orderState.id} onClick={updateOrder}>Cancel</button>
+                    <button name="completed" value={orderState.id} onClick={updateOrder}>Complete</button>
 
                   </div>
                 </div>

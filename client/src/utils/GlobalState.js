@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-
+import mapStyle from "../assets/mapStyle";
 const CountContext = createContext();
 const { Provider } = CountContext;
 
@@ -109,6 +109,12 @@ const reducer = (state, action) => {
         ...state,
         signIn: "none",
         signUp: "block"
+      } 
+      case "dark":
+      return {
+        ...state,
+        mapStyle:action.mapStyle,
+        circleColor:action.circleColor
       }
     default:
       throw new Error(`Invalid action type: ${action.type}`);
@@ -135,7 +141,9 @@ const CountProvider = ({ value = 0, ...props }) => {
     lng: "",
     line1: "",
     line2: "",
-    sidebar: "none"
+    sidebar: "none",
+    mapStyle:mapStyle,
+    circleColor:"hsla(25,10%,80%,1)"
 
   });
 

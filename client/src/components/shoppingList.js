@@ -82,7 +82,7 @@ function ShoppingList() {
                     name="quantity"
                     placeholder="amount/quantity"
                 />
-                <button onClick={handleAdd}>Add</button>
+                <button className="shoppingAdd" onClick={handleAdd}>Add</button>
             </form>
             <div>
                 {shoppingList.list.length ? (

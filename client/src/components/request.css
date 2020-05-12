@@ -1,7 +1,9 @@
 .requestInput{
    width: 80%;
-   display: block;
+   display: inline-block;
 }
 .requestContainer{
+    width: 50%;
     padding-right: 5px ;
+    padding-left: 5px;
 }

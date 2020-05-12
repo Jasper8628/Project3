@@ -26,7 +26,7 @@
     height: 18px;
 }
 .shoppingListBtn{
-    width: 50%;
+    width: 80%;
     margin-left: 20px;
     text-decoration: line-through;
     box-shadow: -1.2px -1.2px 3px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1),
@@ -37,11 +37,28 @@
     
 }
 .unPressed{
+    width: 80%;
     margin-left: 20px;
-    width: 50%;
 }
 .unPressed:active{
+    width: 80%;
     margin-left: 20px;
-    width: 50%;
+}
+.shoppingAdd{
+    margin-left: 75%;
+    height: 25px;
+    padding-top: 0%;
+}
+.shoppingAdd:active{
+    margin-left: 75%;
+    height: 25px;
+    padding-top: 0%;
+
+}
+.shoppingAdd:focus{
+    margin-left: 75%;
+    height: 25px;
+    padding-top: 0%;
+
 }
 

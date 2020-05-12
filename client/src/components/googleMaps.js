@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker, Circle } from "react-google-maps";
 import Geocode from "react-geocode";
-import mapStyle from "../assets/mapStyle";
+// import mapStyle from "../assets/mapStyle";
 import { useCountContext } from "../utils/GlobalState";
 import API from '../utils/API';
 Geocode.setApiKey("AIzaSyCxo5m4EhnOvW9TOdazdQRHhjWo4cyOQ54");
@@ -92,7 +92,8 @@ function GoogleMaps(props) {
                             lat: mapPosition.lat,
                             lng: mapPosition.lng
                         }}
-                    defaultOptions={{ styles: mapStyle }}
+                    defaultOptions={{ disableDefaultUI:true, controlSize:21,styles: state.mapStyle }}
+             
                 >
                     <Marker
                         name={"You're here"}
@@ -145,7 +146,7 @@ function GoogleMaps(props) {
                                 lat: mapPosition.lat,
                                 lng: mapPosition.lng
                             }}
-                        options={{ strokeColor: "#bbbbbb" }}
+                        options={{ strokeColor: state.circleColor}}
 
                         radius={state.radius}
                     />
@@ -160,7 +161,7 @@ function GoogleMaps(props) {
             <WrappedMap
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${api}`}
                 loadingElement={<div style={{ 'height': `100%` }} />}
-                containerElement={<div style={{ 'height': `300px` }} />}
+                containerElement={<div style={{ 'height': `37vh` }} />}
                 mapElement={<div style={{ 'height': `100%` }} />}
             />
         </div>

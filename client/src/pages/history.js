@@ -51,7 +51,7 @@ function History() {
             <button className="settings fas fa-share"></button>
         </Link>
             <div className="col-md-6 col-sm-12">
-                <h3>Active Requests: </h3> 
+                <h3 className="historyH3">Active Requests: </h3> 
                 {list.active.length ? (
                     <ul>
                         {list.active.map(item => (
@@ -78,7 +78,7 @@ function History() {
                 ) : (<p>No Active Requests Currently</p>)}
             </div>
             <div className="col-md-6 col-sm-12">
-                <h3>Recent Requests: </h3> 
+                <h3 className="historyH3">Recent Requests: </h3> 
                 {list.completed.length ? (
                     <ul>
                         {list.completed.map(item => (
