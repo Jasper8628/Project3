@@ -133,7 +133,7 @@ function Home() {
       postcode: parseInt(state.postcode),
       lat: state.lat,
       lng: state.lng,
-      name: localStorage.getItem("userName"),
+      name: state.userName,
       radius: state.radius,
       token: localStorage.getItem("fireToken")
     }
