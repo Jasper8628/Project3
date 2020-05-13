@@ -242,15 +242,15 @@ form{
     background: hsla(var(--hue), var(--saturation), var(--baseLightness), 1);
     cursor: pointer;
     
-    box-shadow: -3px -3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
-              inset -3px -3px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1),
-                 3px 3px 15px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1),
-             inset    2px 2px 15px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1);
+    box-shadow: -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+              inset -3px -3px 10px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1),
+                 3px 3px 5px hsla(var(--hue),var(--saturation),var(--threeShadeDarker),1),
+             inset    2px 2px 5px hsla(var(--hue),var(--saturation),var(--oneShadeDarker),1);
     
 }
 .sliderLable{
     margin-top: -5px;
-    margin-left: 55px;
+    margin-left: 15%;
     margin-bottom: 5%;
     color:var(--fontColor); 
     line-height: 70px;
@@ -495,6 +495,7 @@ li button{
     padding:25px;
     border-radius: 0.8rem;
     margin:0 auto;
+    margin-top: 45%;
     width: 300px;
     box-shadow: -5px -5px 15px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
           inset  -3px -3px 15px hsla(var(--hue),var(--saturation),var(--oneShadeLighter),1), 

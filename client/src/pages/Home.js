@@ -318,7 +318,7 @@ function Home() {
             onChange={customSlider}
           />
           <span className="quest fas fa-exclamation"></span>
-          <h6 className="sliderLable">Going to the shops? Slide me...</h6>
+          <h5 className="sliderLable">Going to the shops? Slide me...</h5>
 
           {/* <button className="btn btn-primary" onClick={handleBinding}>firebase button</button>
           <button className="btn btn-primary" onClick={handleFire}>admin</button> */}
