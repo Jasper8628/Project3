@@ -148,7 +148,7 @@ module.exports = {
     },
 
     update: function (req, res) {
-        console.log("updating: ", req.body._id);
+        console.log("updating: ",  req.params.id);
         db.User
             .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
             .then(dbModel => res.json(dbModel))

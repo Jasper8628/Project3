@@ -4,7 +4,7 @@ import { useCountContext } from "../utils/GlobalState";
 import { Link } from "react-dom";
 import { Redirect } from "react-router-dom";
 import Register from "../components/register";
-import mapBlue from "../assets/mapBlue";
+import mapGreen from "../assets/mapGreen";
 
 function Landing() {
     const [formObject, setFormObject] = useState({});
@@ -32,11 +32,11 @@ function Landing() {
             root.style.setProperty('--threeShadeDarker', "6%");
             root.style.setProperty('--fourShadeDarker', "0%");
             root.style.setProperty('--saturation', "0%");
-            root.style.setProperty('--neongreen', "hsla(212,100%,55%,1)");
-            root.style.setProperty('--fontColor', "hsla(212,100%,35%,1)");
-            root.style.setProperty('--fontColorLight', "hsla(212,100%,25%,1)");
-            root.style.setProperty('--fontColorLightest', "hsla(212,100%,20%,1)");
-            dispatch({ type: "dark", mapStyle: mapBlue, circleColor: "hsla(212,100%,30%,1)" });
+            root.style.setProperty('--neongreen', "hsla(119,100%,55%,1)");
+            root.style.setProperty('--fontColor', "hsla(119,100%,30%,1)");
+            root.style.setProperty('--fontColorLight', "hsla(119,100%,20%,1)");
+            root.style.setProperty('--fontColorLightest', "hsla(119,100%,15%,1)");
+            dispatch({ type: "dark", mapStyle: mapGreen, circleColor: "hsla(119,100%,55%,1)" });
         }
 
     }, [])

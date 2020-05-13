@@ -15,7 +15,8 @@ module.exports = {
                 users.filter(user => {
                     const a = (user.lat - lat) * 111263.0566;
                     const b = (user.lng - lng) * 111263.0566;
-                    if (0 < (a * a + b * b) <= radius * radius && user.name!==name
+                    if (0 < (a * a + b * b) <= radius * radius 
+                    // && user.name!==name
                     ) {
                         tokens.push(user.fireToken);
                     }
@@ -24,7 +25,7 @@ module.exports = {
                 console.log("logging all line1s:", line1s);
                 const message = {
                     data: {
-                        msg: `${name} from your neighborhood is going to the shops,\n \n any requests?`,
+                        msg: `${name} next door is going to the shops,\n \n any requests?`,
                         name: name,
                         request: "none",
                         type:"send"

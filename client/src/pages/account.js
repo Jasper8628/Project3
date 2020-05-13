@@ -23,6 +23,7 @@ function Account() {
         msg: ""
 
     });
+    const [tipState,setTipState]=useState("none");
     const [formObject, setFormObject] = useState({});
     const [newPassword, setNewPassword] = useState({});
     useEffect(() => {
@@ -105,7 +106,7 @@ function Account() {
                     const postcode = res.data.postcode;
                     setFormObject(res.data);
                     console.log("logging account: ", lat, lng);
-                    dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2,postcode:postcode });
+                    dispatch({ type: "in", lat: lat, lng: lng, line1: line1, line2: line2, postcode: postcode });
                 })
                 .catch(err => console.log(err));
         }
@@ -151,10 +152,18 @@ function Account() {
             stateTerritory: formObject.stateTerritory
         }
         API.updateUser(user)
-            .then(res => console.log(res))
+            .then(res => {
+                 console.log(res);
+                 setTipState("block");
+                 setTimeout(() => {
+                     setTipState("none");
+                 }, 2000);
+            })
             .catch(err => console.log(err));
-
     };
+    function closeTip(event){
+        setTipState("none");
+    }
     function changePassword(event) {
         event.preventDefault();
         const token = localStorage.getItem("reactToken");
@@ -303,11 +312,22 @@ function Account() {
                         <GoogleMaps />
                     </div>
                     <br />
-                    <button
-                        className="saveBtn"
-                        onClick={handleFormSubmit}>
-                        Save changes
-                    </button>
+                    <div className="accountTipContainer" >
+                        <div className="tip" style={{"display":`${tipState}`}}>
+                            <button className="closeBtn" onClick={closeTip} >x</button>
+                            <p>Changes Saved!</p>
+                        </div>
+                        <button
+                            className="saveBtn"
+                            onClick={handleFormSubmit}>
+                            Save changes
+                        </button>
+                    </div>
+
+
+
+
+
                 </form>
                 <div style={(state.status === "out" ? { "display": "block" } : { "display": "none" })}>
                     Whoa whoa! nothing to see here, sign in or sign up

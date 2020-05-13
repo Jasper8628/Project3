@@ -48,3 +48,59 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
 }
+.sliderContainer{
+    position: relative;
+}
+.tip .closeBtn{
+    box-shadow: none;
+    background: hsla(var(--hue), var(--saturation), var(--fourShadeLighter), 1);
+    color:hsla(var(--hue), var(--saturation), var(--fourShadeDarker), 1);
+    position: absolute;
+    top:-5%;
+    right: -2%;
+}
+.tip p{
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.tip{
+    border-radius: 0.8rem;
+    padding: 5%;
+    padding-top: 5%;
+    position: absolute;
+    top:-200%;
+    right:25%;
+    box-shadow:  -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
+    3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
+
+    width: 50%;
+    height: 210%;
+    background: hsla(var(--hue), var(--saturation), var(--fourShadeLighter), 1);
+}
+.tip::after{
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-top: 10px solid hsla(var(--hue), var(--saturation), var(--fourShadeLighter), 1);
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    left: 80%;
+    top: 100%;
+}
+.accountTipContainer{
+    position: relative;
+}
+.accountTipContainer .tip{
+    top:-130%;
+    height: 120%;
+    text-align: center;
+    padding-bottom: 5%;
+    padding-top: 3.5%;
+}
+.accountTipContainer p{
+    font-size: 1rem;
+}
+

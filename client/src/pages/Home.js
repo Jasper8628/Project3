@@ -38,6 +38,10 @@ function Home() {
     shoppingList: [],
     address: ""
   });
+  const [tipState, setTipState] = useState({
+    display: "none",
+    msg: ""
+  })
 
 
   useEffect(() => {
@@ -115,6 +119,12 @@ function Home() {
     value: 0,
     color: ""
   });
+  function closeTip(event){
+    setTipState({
+      ...tipState,
+      display:"none"
+    })
+  }
 
   function customSlider(event) {
     const value = parseInt(event.target.value);
@@ -125,7 +135,32 @@ function Home() {
       value: value,
       color: background
     });
-    if (value === 100) handleFire(event);
+    if (value === 100) {
+      if (state.postcode) {
+        handleFire(event);
+        setTipState({
+          display: "block",
+          msg: "Thank you! Your neighbours have been notified. They will reply with a request should they need anything"
+        })
+        setTimeout(() => {
+          setTipState({
+            ...tipState,
+            display: "none"
+          })
+        }, 6000);
+      } else {
+        setTipState({
+          display: "block",
+          msg: "New account? Update your location to connect with neighbours"
+        });
+        setTimeout(() => {
+          setTipState({
+            ...tipState,
+            display: "none"
+          })
+        }, 2000);
+      }
+    }
   }
 
   function handleFire(event) {
@@ -178,6 +213,7 @@ function Home() {
         setUsers({
           list: accepted
         })
+        const postcode=res.data.postcode;
         const name = res.data.name;
         const line1 = res.data.addressLine1;
         const line2 = res.data.addressLine2;
@@ -191,7 +227,8 @@ function Home() {
           line1: line1,
           line2: line2,
           userName: name,
-          userID: id
+          userID: id,
+          postcode:postcode
         });
       })
       .catch(err => console.log(err));
@@ -207,6 +244,7 @@ function Home() {
     }
   }
   function handleBlur() {
+    console.log(unFocused, state.sidebar)
     if (unFocused && state.sidebar === "block") dispatch({ type: "sidebarOff" });
   }
   function handleFocus() {
@@ -296,7 +334,7 @@ function Home() {
   return (
     <React.Fragment >
       <button className="settings fas fa-user-circle" onClick={handleSideBar} onBlur={handleBlur} ></button>
-      <div className="sideBar" onMouseOver={handleFocus} onMouseLeave={handleUnFocus} style={{ "display": `${state.sidebar}` }}>
+      <div className="sideBar" onMouseOver={handleFocus} onMouseLeave={handleUnFocus} onBlur={handleBlur} style={{ "display": `${state.sidebar}` }}>
         <Sidebar />
       </div>
       <div className="row justify-content-center">
@@ -304,20 +342,26 @@ function Home() {
           <div className="mapContainer">
             <GoogleMaps userList={users.list} />
           </div>
-          <br/>
-          <input
-            className="col-sm-12"
-            id="slider"
-            type="range"
-            name="slider"
-            min="0"
-            value={sliderState.value}
-            max="100"
-            placeholder="Slide to let them know"
-            style={{ "background": `${sliderState.color}` }}
-            onChange={customSlider}
-          />
-          <span className="quest fas fa-exclamation"></span>
+          <br />
+          <div className="sliderContainer">
+            <input
+              className="col-sm-12"
+              id="slider"
+              type="range"
+              name="slider"
+              min="0"
+              value={sliderState.value}
+              max="100"
+              placeholder="Slide to let them know"
+              style={{ "background": `${sliderState.color}` }}
+              onChange={customSlider}
+            />
+            <div className="tip" style={{"display":`${tipState.display}`}}>
+              <button className="closeBtn" onClick={closeTip}>x</button>
+              <p>{tipState.msg}</p>
+            </div>
+          </div>
+
           <h5 className="sliderLable">Going to the shops? Slide me...</h5>
 
           {/* <button className="btn btn-primary" onClick={handleBinding}>firebase button</button>
