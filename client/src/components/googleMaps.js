@@ -157,11 +157,11 @@ function GoogleMaps(props) {
     const WrappedMap = withScriptjs(withGoogleMap(Map));
 
     return (
-        <div style={{ width: "100%", height: "300px" }}>
+        <div style={{ width: "100%", height: "30vh" }}>
             <WrappedMap
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${api}`}
                 loadingElement={<div style={{ 'height': `100%` }} />}
-                containerElement={<div style={{ 'height': `30vh` }} />}
+                containerElement={<div style={{ 'height': `93%` }} />}
                 mapElement={<div style={{ 'height': `100%` }} />}
             />
         </div>
