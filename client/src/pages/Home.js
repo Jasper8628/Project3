@@ -291,10 +291,10 @@ function Home() {
     const newList = state.requests.filter(item => (item._id !== id));
     const receipient = state.requests.find(item => item._id === id);
     dispatch({ type: "cancel", requests: newList });
-    setUsers({
-      list: newList
-    });
-    console.log(newList);
+    // setUsers({
+    //   list: newList
+    // });
+    // console.log(newList);
     homeListBtn();
     const data = {
       id: id,
