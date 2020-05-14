@@ -73,8 +73,8 @@
     box-shadow:  -3px -3px 5px hsla(var(--hue),var(--saturation),var(--twoShadeLighter),1),
     3px 3px 15px hsla(var(--hue),var(--saturation),var(--twoShadeDarker),1);
 
-    width: 50%;
-    height: 210%;
+    width: 60%;
+    height: 200%;
     background: hsla(var(--hue), var(--saturation), var(--fourShadeLighter), 1);
 }
 .tip::after{
@@ -103,4 +103,16 @@
 .accountTipContainer p{
     font-size: 1rem;
 }
-
+.accountContainer{
+    padding-left: 5%;
+    margin-top: 5%;
+}
+.accountContainer input{
+    justify-content: center;
+    width: 85%;
+}
+.accountContainer .mapContainer{
+    height: 33vh;
+    margin-left:8%;
+    margin-top: 4%;
+}

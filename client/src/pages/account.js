@@ -1,15 +1,9 @@
-
-import { Input } from "../components/Form";
 import { Link } from "react-router-dom";
-import { List, ListItem } from "../components/List";
-import DeleteBtn from "../components/DeleteBtn";
 import React, { useState, useEffect } from "react";
 import API from "../utils/API";
-import Logout from "../components/logout";
 import { useCountContext } from "../utils/GlobalState";
 import Geocode from "react-geocode";
 import GoogleMaps from "../components/googleMaps";
-import Goshopping from "../components/goShopping";
 import { calScore } from "../utils/pwStrength";
 function Account() {
     const [state, dispatch] = useCountContext();
@@ -196,7 +190,7 @@ function Account() {
             <Link to="/home">
                 <button className="settings fas fa-share"></button>
             </Link>
-            <div className="row justify-content-center">
+            <div className="row justify-content-center accountContainer">
 
                 <form className=" col-md-10 col-sm-10"
                     style={(state.status === "in" ?

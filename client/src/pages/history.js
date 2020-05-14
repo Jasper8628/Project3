@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../utils/API";
-import Logout from "../components/logout";
-import { useCountContext } from "../utils/GlobalState";
-import Geocode from "react-geocode";
-import GoogleMaps from "../components/googleMaps";
-import Goshopping from "../components/goShopping";
 import "./history.css";
 
 function History() {
@@ -54,11 +49,11 @@ function History() {
                 <h3 className="historyH3">Active Requests: </h3> 
                 {list.active.length ? (
                     <ul>
-                        {list.active.map(item => (
+                        {list.active.map((item,index) => (
                             <li
                             className="historyList" 
-                            key={item._id}>
-                                <p><h5>Requested at: </h5>{item.createdAt}</p>
+                            key={index}>
+                                <h5>Requested at: </h5>{item.createdAt}    
                                 <p>{item.item1}</p>
                                 <p>{item.item2}</p>
                                 <p>{item.item3}</p>
@@ -81,11 +76,11 @@ function History() {
                 <h3 className="historyH3">Recent Requests: </h3> 
                 {list.completed.length ? (
                     <ul>
-                        {list.completed.map(item => (
+                        {list.completed.map((item,index) => (
                             <li
                             className="historyList" 
-                            key={item._id}>
-                                <p><h5>Requested at: </h5>{item.createdAt}</p>
+                            key={index}>
+                                <h5>Requested at: </h5>{item.createdAt}
                                 <p>{item.item1}</p>
                                 <p>{item.item2}</p>
                                 <p>{item.item3}</p>

@@ -151,7 +151,7 @@ function Requestie() {
             </form>
             <div className="modal-footer">
                 <button type="button" onClick={handleClose}>Close</button>
-                <button type="button" onClick={reply}>Request it!</button>
+                <button type="button" onClick={reply}>Request</button>
             </div>
             {/* </div>
                       

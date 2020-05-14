@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import DeleteBtn from "../components/DeleteBtn";
-import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
-import { Link } from "react-router-dom";
-import { Col, Container } from "../components/Grid";
-import { List, ListItem } from "../components/List";
-import { Input, TextArea, FormBtn } from "../components/Form";
 import { messaging } from "../init-fcm";
 import GoogleMaps from "../components/googleMaps";
 import ShoppingList from "../components/shoppingList";
 import Notice from "../components/notice";
-import Theme from "../components/theme";
 import { useCountContext } from "../utils/GlobalState";
 import Sidebar from "../components/sideBar/index";
 
@@ -24,20 +17,13 @@ function Home() {
     id: ""
   });
   const [state, dispatch] = useCountContext();
-  const [formObject, setFormObject] = useState({});
   const [btnState, setBtnState] = useState({});
   const [firebaseToken, setFirebaseToken] = useState();
   const [notestate, setNotice] = useState({
     msg: '',
     type: ''
   });
-  const [userState, setUserState] = useState({
-    lat: "",
-    lng: "",
-    name: "",
-    shoppingList: [],
-    address: ""
-  });
+ 
   const [tipState, setTipState] = useState({
     display: "none",
     msg: ""
