@@ -315,7 +315,7 @@ function Home() {
       .then(res => {
         console.log(res)
         loadUser();
-      });
+      })
       .catch(err => console.log(err));
 
   }
