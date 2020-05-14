@@ -23,7 +23,7 @@ function Home() {
     msg: '',
     type: ''
   });
- 
+
   const [tipState, setTipState] = useState({
     display: "none",
     msg: ""
@@ -105,10 +105,10 @@ function Home() {
     value: 0,
     color: ""
   });
-  function closeTip(event){
+  function closeTip(event) {
     setTipState({
       ...tipState,
-      display:"none"
+      display: "none"
     })
   }
 
@@ -199,7 +199,7 @@ function Home() {
         setUsers({
           list: accepted
         })
-        const postcode=res.data.postcode;
+        const postcode = res.data.postcode;
         const name = res.data.name;
         const line1 = res.data.addressLine1;
         const line2 = res.data.addressLine2;
@@ -214,7 +214,7 @@ function Home() {
           line2: line2,
           userName: name,
           userID: id,
-          postcode:postcode
+          postcode: postcode
         });
       })
       .catch(err => console.log(err));
@@ -294,7 +294,6 @@ function Home() {
     setUsers({
       list: newList
     });
-    loadUser();
     console.log(newList);
     homeListBtn();
     const data = {
@@ -313,7 +312,10 @@ function Home() {
 
     API
       .updateOrder(data)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        loadUser();
+      });
       .catch(err => console.log(err));
 
   }
@@ -344,7 +346,7 @@ function Home() {
               style={{ "background": `${sliderState.color}` }}
               onChange={customSlider}
             />
-            <div className="tip" style={{"display":`${tipState.display}`}}>
+            <div className="tip" style={{ "display": `${tipState.display}` }}>
               <button className="closeBtn" onClick={closeTip}>x</button>
               <p>{tipState.msg}</p>
             </div>
