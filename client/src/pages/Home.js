@@ -293,7 +293,9 @@ function Home() {
     dispatch({ type: "cancel", requests: newList });
     setUsers({
       list: newList
-    })
+    });
+    loadUser();
+    console.log(newList);
     homeListBtn();
     const data = {
       id: id,
