@@ -11,7 +11,7 @@ Creator:
 A mobile first web app that encourages you to think of your neightbours when shopping for your own
 
 
-![screenshot](client/src/assets/screenProject.png).
+![screenshot](client/public/images/screenshots/screenProject3.png).
 
 ## Table of Contents (Optional)
 
